@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<module version="0.1"> 
+    <name lang="en">OpenID</name> 
+    <description lang="en">The module provides OpenID feature to the ATutor. Which enables users to register and log in to the ATutor without much pain. They can manage their content without keeping a separate username password combo.</description> 
+    <maintainers>
+        <maintainer> 
+            <name>Arun Scaria</name> 
+            <email>arunscaria91@gmail.com</email> 
+        </maintainer>
+    </maintainers> 
+    <url>http://www.google-melange.com/gsoc/project/google/gsoc2012/arunscaria91/52003</url> 
+    <license>GPL</license> 
+	<release> 
+        <version>3</version> 
+        <date>2007-06-29</date> 
+        <state>stable</state> 
+        <notes></notes> 
+    </release> 
+</module>
