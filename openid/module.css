@@ -1,0 +1,111 @@
+div.openid_input-form {
+width: 95%;
+margin-left: auto;
+margin-right: auto;
+border: 1px #CCCCCC solid;
+margin-bottom: 10px;
+line-height: 150%;
+background-color: #F8F8F8;
+border-radius: .5em;
+-moz-border-radius: .5em .5em .5em .5em;
+padding: .2em;
+}
+
+
+#opnid_wraper{
+    background: #F8F8F8 url('images/openid_bg.png') no-repeat top left;
+    background-position-x: 10%;
+    background-position-y: 160%;   
+    height: 300px;
+}
+              
+p#openid_text{
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 1.3em;
+    font-family: Helevatica;
+}
+
+
+#openid_vertical_divider {
+    width: 50%;
+    padding-left: 30px;
+    padding-right: 15px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-color: #cccccc;
+    height: 250px;
+    position: absolute;
+    left: 50%;
+    margin-top: 10px;
+}
+
+#openid_indicator_arrow::before {
+    content: url('images/indicator_right.png');
+    position: absolute;
+    width: 12px;
+    height: 23px;
+    left: -1px;
+    top: 35px; /* adjust pointer */
+}
+
+#openid_login-btns-wrapper{
+    margin-left: 70px;
+    
+}
+
+
+fieldset{
+    border: 0;
+    color: #757575;
+    font-size: 19.5px;
+}
+
+
+
+a.openid_one-click-login {
+  display:block;
+  width:200px;
+  font-family:arial;
+  height:30px;
+  padding:0px;
+  padding-top:14px;
+  color:#ffffff;
+  font-size:16px;
+  font-weight:bold;
+  margin:auto;
+  background:url('images/sprite_login_btns.png') no-repeat;
+  margin:10px;
+  margin-left:20px;
+  margin-bottom:20px;
+  text-shadow:0px 1px 3px #555555;
+  filter:dropshadow(color=#555555,offx=1,offy=1);
+}
+
+#openid_login-btns-wrapper{
+    list-style-type: none;
+    margin-left: 40px;
+}
+
+a.openid_social_label{
+  width: 251px;
+  color:#ffffff;
+  font-size:16px;
+  font-weight:bold;
+  text-align: left;
+  padding-left: 50px;
+  text-shadow:0px 1px 3px whitesmoke;
+}
+
+a#openid_facebook        { background-position:0px 0px;   }
+a#openid_facebook:hover  { background-position:0px -43px; }
+a#openid_facebook:active { background-position:0px -86px; }
+
+a#openid_twitter         { background-position:0px -129px; }
+a#openid_twitter:hover   { background-position:0px -172px; }
+a#openid_twitter:active  { background-position:0px -215px; }
+
+a#openid_google          { background-position:0px -258px; }
+a#openid_google:hover    { background-position:0px -301px; }
+a#openid_google:active   { background-position:0px -344px; }
+
