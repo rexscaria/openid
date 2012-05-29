@@ -1,8 +1,8 @@
 OpenID-ATutor
 =============
 
-OpenID module for ATutor[PHP]
-+++++++++++++++++++++++++++++
+ OpenID module for ATutor[PHP]
+ +++++++++++++++++++++++++++++
 
   The module provides OpenID feature to the ATutor.  Which enables users to register and  log 
   in to the ATutor without much pain. They can manage their content without keeping a separate 
