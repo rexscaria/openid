@@ -1,4 +1,4 @@
-# sql file for example maker module
+# sql file for openid module
 
 CREATE TABLE openid (
    `opnid_id` mediumint(8) unsigned NOT NULL AUTO INCREMENT,
