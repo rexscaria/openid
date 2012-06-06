@@ -28,23 +28,33 @@ class OpenIDUtility
             $verify_peer = null,
             $capath = null,
             $cainfo = null,
-            $data;
+            $data,
+            $display_favicon = false,
+            $ui_mode = 'unknown',
+            $max_auth_age = '0',
+            $pape_enabled = false;
     
     private $identity, 
             $claimed_id;
     
     protected $server,
             $version, 
-            $trustRoot,                 // Root domain to be trusted.
+            $trustRoot,                 // Root domain to be trusted, Used as realam.
             $aliases, 
             $identifier_select = false,
-            $ax = false, 
-            $sreg = false, 
+            $ax = false,
+            $sreg = false,
+            $ui = false,
+            $ui_icon_support = false,
+            $ui_popup_support = false,
+            $pape = false,
             $setup_url = null;
     
     static protected $ax_to_sreg = array(
         'namePerson/friendly'     => 'nickname',
         'contact/email'           => 'email',
+        'namePerson/first'        => 'firstname',
+        'namePerson/last'         =>  'lastname',
         'namePerson'              => 'fullname',
         'birthDate'               => 'dob',
         'person/gender'           => 'gender',
@@ -74,7 +84,7 @@ class OpenIDUtility
          * Check for the requirements.
          */
         if(!function_exists('curl_init') && !in_array('https', stream_get_wrappers())) {
-            throw new ErrorException('You must have either https wrappers or curl enabled.');
+            throw new ErrorException('OpenID module requires either https wrappers or curl enabled.');
         }
     }
 
@@ -421,7 +431,16 @@ class OpenIDUtility
                             $this->ax   = (bool) strpos($content, '<Type>http://openid.net/srv/ax/1.0</Type>');
                             $this->sreg = strpos($content, '<Type>http://openid.net/sreg/1.0</Type>')
                                        || strpos($content, '<Type>http://openid.net/extensions/sreg/1.1</Type>');
-
+                            
+                            # Does server supports ui extensions.
+                            #Specificaly icon and popup
+                            $this->ui_icon_support  = (bool) strpos($content, '<Type>http://specs.openid.net/extensions/ui/1.0/icon</Type>');
+                            $this->ui_popup_support = (bool) strpos($content, '<Type>http://specs.openid.net/extensions/ui/1.0/mode/popup</Type>');
+                            $this->ui = $this->ui_icon_support || $this->ui_popup_support;
+                            
+                            #Does server supports pape extensions
+                            $this->pape = (bool) strpos($content, '<Type>http://specs.openid.net/extensions/pape/1.0</Type>');
+                            
                             $server = $server[1];
                             if (isset($delegate[2])) $this->identity = trim($delegate[2]);
                             $this->version = 2;
@@ -502,9 +521,9 @@ class OpenIDUtility
     protected function sregParams()
     {
         $params = array();
-        # We always use SREG 1.1, even if the server is advertising only support for 1.0.
+        # Always use SREG 1.1, even if the server is advertising only support for 1.0.
         # That's because it's fully backwards compatibile with 1.0, and some providers
-        # advertise 1.0 even if they accept only 1.1. One such provider is myopenid.com
+        # advertise 1.0 even if they accept only 1.1.
         $params['openid.ns.sreg'] = 'http://openid.net/extensions/sreg/1.1';
         if ($this->required) {
             $params['openid.sreg.required'] = array();
@@ -564,6 +583,30 @@ class OpenIDUtility
         }
         return $params;
     }
+    
+    protected function uiParams(){
+        $params = array();
+        if($this->ui_icon_support && $this->display_favicon){
+            $params['openid.ns.ui'] = 'http://specs.openid.net/extensions/ui/1.0';
+            $params['openid.ui.icon'] = 'true';
+        }
+        if($this->ui_popup_support && $this->ui_mode && 
+                ($this->ui_mode=='popup' || $this->ui_mode=='x-has-session')){
+            $params['openid.ns.ui'] = 'http://specs.openid.net/extensions/ui/1.0';
+            $params['openid.ui.mode'] = $this->ui_mode;
+        }
+        return $params;
+    }
+    
+    
+    protected function papeParams(){
+        $params = array();
+        if($this->pape && $this->pape_enabled && isset($this->max_auth_age)){
+            $params['openid.ns.pape'] = 'http://specs.openid.net/extensions/pape/1.0';
+            $params['openid.pape.max_auth_age'] = intval($this->max_auth_age);
+        } 
+        return $params;
+    }
 
     protected function authUrl_v1($immediate)
     {
@@ -605,7 +648,17 @@ class OpenIDUtility
             # in worst case we don't get anything in return.
             $params += $this->axParams() + $this->sregParams();
         }
-
+        
+        #UI extensions
+        if($this->ui){
+            $params += $this->uiParams();
+        }
+        
+        #Pape extensions
+        if($this->pape){
+            $params += $this->papeParams();
+        }
+        
         if ($this->identifier_select) {
             $params['openid.identity'] = $params['openid.claimed_id']
                  = 'http://specs.openid.net/auth/2.0/identifier_select';
