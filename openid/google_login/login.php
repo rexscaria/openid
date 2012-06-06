@@ -1,45 +1,65 @@
 <?php
 
-// importing required files
-require_once 'openid_utility.php';
-// callback URL
-define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME']."/ATutor/mods/openid/google_login/login.php" );
+$_user_location	= 'public';
 
-function googleAuthenticate() {
-    // Creating new instance
-    $openid = new OpenIDUtility;
-    $openid->identity = 'https://www.google.com/accounts/o8/id';
-    //setting call back url
-    $openid->returnUrl = CALLBACK_URL;
-    //finding open id end point from google
-    $endpoint = $openid->discover('https://www.google.com/accounts/o8/id');
-    $fields =
-            '?openid.ns=' . urlencode('http://specs.openid.net/auth/2.0') .
-            '&openid.return_to=' . urlencode($openid->returnUrl) .
-            '&openid.claimed_id=' . urlencode('http://specs.openid.net/auth/2.0/identifier_select') .
-            '&openid.identity=' . urlencode('http://specs.openid.net/auth/2.0/identifier_select') .
-            '&openid.mode=' . urlencode('checkid_setup') .
-            '&openid.ns.ax=' . urlencode('http://openid.net/srv/ax/1.0') .
-            '&openid.ax.mode=' . urlencode('fetch_request') .
-            '&openid.ax.required=' . urlencode('email,firstname,lastname,language,country') .
-            '&openid.ax.type.firstname=' . urlencode('http://axschema.org/namePerson/first') .
-            '&openid.ax.type.lastname=' . urlencode('http://axschema.org/namePerson/last') .
-            '&openid.ax.type.email=' . urlencode('http://axschema.org/contact/email').
-            '&openid.ax.type.country=' . urlencode('http://axschema.org/contact/country/home') .
-            '&openid.ax.type.language=' . urlencode('http://axschema.org/pref/language').
-            '&openid.ns.pape='.urlencode('http://specs.openid.net/extensions/pape/1.0').
-            '&openid.pape.max_auth_age='.urlencode('0');
-    header('Location: ' . $endpoint . $fields);
-}
+define('AT_INCLUDE_PATH', '../../../include/');
+require (AT_INCLUDE_PATH.'vitals.inc.php');
+#importing required files
+require 'openid_utility.php';
+
+#callback URL
+define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME']."/ATutor/mods/openid/google_login/get_googleData.php" );
+define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
+
+    try{
+        
+        #Create OpenID Utility object
+        $openid = new OpenIDUtility;        
+        if (isset($_GET['login']) && $_GET['login']=='true' && 
+            isset($_GET['openid_provider']) &&  $_GET['openid_provider'] == 'google' &&
+            !$openid->mode) {
+                  #Set Google indentity URL
+                  $openid->identity = GOOGLE_IDENTITY_URL;
+                  #setting call back url
+                  // $openid->returnUrl = CALLBACK_URL;
+                  #Select openid mode as 'checkid_setup'
+                  $immediate_mode = false;
+                  #Set the required ax params.
+                  $openid->required = array(
+                        'email'       =>   'contact/email',
+                        'firstname'   =>   'namePerson/first',
+                        'lastname'    =>   'namePerson/last',
+                        'country'     =>   'contact/country/home',
+                        'language'    =>   'pref/language'
+                      );
+                                
+                  #Set UI params
+                  $openid->display_favicon = true;
+                  $openid->ui_mode='x-has-session';
+                                
+                  #Set pape params
+                  $openid->pape_enabled = false;
+                  $openid->max_auth_age = '60';
+                                
+                  /*
+                  * Now everything is set. Find the end point with OpenID
+                  * discovery and redirect to the authentication url,
+                  */
+                  
+                  header('Location: ' . $openid->authUrl());
+         }
+         else if($openid->mode=='cancel'){
+            
+            $msg->addError('OPENID_USER_CANCELLED_REQUEST');
+            header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
+            
+         }
+    }catch (Exception $e){
+ 
+       $msg->addERROR(array('OPENID_EXCEPTION_OCCURED',$e->getMessage(),$e->getCode()));
+       header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
+    }
 
 
-
-if (array_key_exists("login", $_GET)) {
-    $oauth_provider = $_GET['oauth_provider'];
-    if ($oauth_provider == 'google') {
-        // calling login functions
-        googleAuthenticate();
-    } 
-}
 ?>
 
