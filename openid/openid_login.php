@@ -16,7 +16,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			<span style="padding-left: 20px;">Click to login</span>
 		</fieldset>
 		   	
-			<li><a href="mods/openid/google_login/login.php?login&oauth_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">Login with Google</a></li>
+			<li><a href="mods/openid/google_login/login.php?login&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">Login with Google</a></li>
 			<li><a href="mods/openid/facebook_login" class="openid_one-click-login openid_social_label" id="openid_facebook">Login with Facebook</a></li>
 			<li><a href="mods/openid/twitter_login" class="openid_one-click-login openid_social_label" id="openid_twitter">Login with Twitter</a></li>
 		  
