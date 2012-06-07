@@ -73,7 +73,7 @@ define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
                  
                  echo '<br/>Stay tuned for login with this credentials.';
                  
-             
+            }
 	}
     }catch (Exception $e){
  
