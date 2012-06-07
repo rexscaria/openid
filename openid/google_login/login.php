@@ -20,8 +20,8 @@ define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
             !$openid->mode) {
                   #Set Google indentity URL
                   $openid->identity = GOOGLE_IDENTITY_URL;
-                  #setting call back url
-                  // $openid->returnUrl = CALLBACK_URL;
+                  #For different call back url uncomment the next line.
+                  #$openid->returnUrl = CALLBACK_URL;
                   #Select openid mode as 'checkid_setup'
                   $immediate_mode = false;
                   #Set the required ax params.
