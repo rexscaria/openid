@@ -53,7 +53,9 @@ define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
             $msg->addError('OPENID_USER_CANCELLED_REQUEST');
             header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
             
-         }
+         }else{
+		#Add validation of openID credentials.
+	}
     }catch (Exception $e){
  
        $msg->addERROR(array('OPENID_EXCEPTION_OCCURED',$e->getMessage(),$e->getCode()));
