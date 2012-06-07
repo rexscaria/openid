@@ -54,7 +54,26 @@ define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
             header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
             
          }else{
-		#Add validation of openID credentials.
+	     
+	     #Google has granted the details. Now, Validate the details before applying it.
+             $is_valid = $openid->validate();
+             if($is_valid){
+                 $attr = $openid->getAttributes();
+                 $openid_email    = isset($attr['contact/email'])?$attr['contact/email']:NULL;
+                 $openid_fname    = isset($attr['namePerson/first'])?$attr['namePerson/first']:NULL;
+                 $openid_lname    = isset($attr['namePerson/last'])?$attr['namePerson/last']:NULL;
+                 $openid_language = isset($attr['pref/language'])?$attr['pref/language']:NULL;
+                 $openid_country  = isset($attr['contact/country/home'])?$attr['contact/country/home']:NULL;
+                 if(!$openid_email && !$openid_fname && !$openid_lname)
+                     throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
+                 
+                 echo 'Details Returned<br/>++++++++++++<br/> First Name: '.$openid_fname.
+                         '<br/>Second Name: '.$openid_lname. '<br/>Email: '.$openid_email.
+                         '<br/> Language: '.$openid_language.'<br/> Country: '.$openid_country;
+                 
+                 echo '<br/>Stay tuned for login with this credentials.';
+                 
+             
 	}
     }catch (Exception $e){
  

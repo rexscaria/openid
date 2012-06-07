@@ -54,7 +54,7 @@ class OpenIDUtility
         'namePerson/friendly'     => 'nickname',
         'contact/email'           => 'email',
         'namePerson/first'        => 'firstname',
-        'namePerson/last'         =>  'lastname',
+        'namePerson/last'         => 'lastname',
         'namePerson'              => 'fullname',
         'birthDate'               => 'dob',
         'person/gender'           => 'gender',
