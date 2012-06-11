@@ -11,9 +11,9 @@
     <url>http://www.google-melange.com/gsoc/project/google/gsoc2012/arunscaria91/52003</url> 
     <license>GPL</license> 
 	<release> 
-        <version>3</version> 
-        <date>2007-06-29</date> 
-        <state>stable</state> 
-        <notes></notes> 
+        <version>1.0 alpha</version> 
+        <date>2012-06-11</date> 
+        <state>On development</state> 
+        <notes>Use this for testing only.</notes> 
     </release> 
 </module>
