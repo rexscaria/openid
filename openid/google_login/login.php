@@ -11,6 +11,8 @@ require 'openid_utility.php';
 define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME']."/ATutor/mods/openid/google_login/get_googleData.php" );
 define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
 define('OPENID_LOGIN_PAGE_URL',AT_BASE_HREF.'mods/openid/openid_login.php');
+define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
+
 
     try{
         
