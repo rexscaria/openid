@@ -1,18 +1,38 @@
 <?php
 
+/* * ******************************************************************** */
+/* ATutor							          */
+/* * ******************************************************************** */
+/* Copyright (c) 2002-2012                                                */
+/* Inclusive Design Institute	                                          */
+/* http://atutor.ca                                                       */
+/*                                      			          */
+/* This program is free software. You can redistribute it and/or          */
+/* modify it under the terms of the GNU General Public License            */
+/* as published by the Free Software Foundation.                          */
+/* * ******************************************************************** */
+//$Id: login.php UTF-8 10055 Jun 13, 2012 7:08:49 PM   Author:scari        $
+
 $_user_location	= 'public';
 
 define('AT_INCLUDE_PATH', '../../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 #importing required files
 require 'openid_utility.php';
+require '../openid_util_fns.php';
 
 #callback URL
-define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME']."/ATutor/mods/openid/google_login/get_googleData.php" );
+define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME'].AT_BASE_HREF."mods/openid/login.php" );
 define('GOOGLE_IDENTITY_URL','https://www.google.com/accounts/o8/id');
 define('OPENID_LOGIN_PAGE_URL',AT_BASE_HREF.'mods/openid/openid_login.php');
 define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
 
+#Disable openid if master list is enabled.
+if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
+    $msg->addError('OPENID_MASTERLIST_ENABLED');
+    header('Location: '.AT_BASE_HREF.'login.php');
+    exit;
+}
 
     try{
         
@@ -24,7 +44,7 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                   #Set Google indentity URL
                   $openid->identity = GOOGLE_IDENTITY_URL;
                   #setting call back url
-                  // $openid->returnUrl = CALLBACK_URL;
+                  //$openid->returnUrl = CALLBACK_URL;
                   #Select openid mode as 'checkid_setup'
                   $immediate_mode = false;
                   #Set the required ax params.
@@ -32,8 +52,8 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                         'email'       =>   'contact/email',
                         'firstname'   =>   'namePerson/first',
                         'lastname'    =>   'namePerson/last',
-                        'country'     =>   'contact/country/home',
-                        'language'    =>   'pref/language'
+                        /*'country'     =>   'contact/country/home',
+                        'language'    =>   'pref/language'*/
                       );
                                 
                   #Set UI params
@@ -54,6 +74,7 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
          }
          else if($openid->mode=='cancel'){
             
+            #TODO: Should `cancel` be considered as failed login attempt?
             $msg->addError('OPENID_USER_CANCELLED_REQUEST');
             header('Location: ' .OPENID_LOGIN_PAGE_URL);
             exit;
@@ -88,10 +109,7 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                          exit;
                      }
                      
-                     /*
-                      * TODO: add support to master_list
-                      */
-                     
+                                          
                      #No Email conformation is needed for OpenID login.
                      $status = AT_STATUS_STUDENT;
                      $now = date('Y-m-d H:i:s');
@@ -147,7 +165,7 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
 			         WHERE member_id=".$member_id;
 			 mysql_query($sql, $db);
 			
-			 #Auto login
+			 #Write to session.
 			 $_SESSION['valid_user'] = true;
 			 $_SESSION['member_id']	= $m_id;
 			 $_SESSION['course_id']  = 0;
@@ -155,6 +173,7 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
 			 assign_session_prefs(unserialize(stripslashes($_config[pref_defaults])), 1);
 			 $_SESSION['is_guest']	= 0;
 			 $_SESSION['lang'] = $_SESSION[lang];
+                         $_SESSION['first_login'] = true;
 			 session_write_close();
 
 			 header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
@@ -200,21 +219,22 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                      
                      if($_config['max_login'] > 0 && $attempt_login >= $_config['max_login']){
                          $msg->addError('MAX_LOGIN_ATTEMPT');
-                         header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
+                         header('Location: ' .OPENID_MOD_DIR.'openid_login.php');
                          exit;
                      } else if ($status == AT_STATUS_UNCONFIRMED) {
                          $msg->addError('NOT_CONFIRMED');
-                         header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
+                         #TODO: Make the mail id as conformed.
+                         header('Location: ' .OPENID_MOD_DIR.'openid_login.php');
                          exit;
                      } else if ($status == AT_STATUS_DISABLED) {
                          $msg->addError('ACCOUNT_DISABLED');
-                         header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
+                         header('Location: ' .OPENID_MOD_DIR.'openid_login.php');
                          exit;
                      }else{
                          
                          #Everythings OK. Make Login.
                          $_SESSION['valid_user'] = true;
-                         $_SESSION['member_id']  = $m_id;
+                         $_SESSION['member_id']  = intval($m_id);
                          $_SESSION['login']	 = $login_name;
                          if ($preferences == "")
                             assign_session_prefs(unserialize(stripslashes($_config["pref_defaults"])), 1);
@@ -227,9 +247,11 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                          $default_course_id = 0;
                          
                          $_SESSION['first_login'] = false;
-                         if ($last_login == null || $last_login == '' || $last_login == '0000-00-00 00:00:00' 
+                         if ($last_login == null || $last_login == '' 
+                            || $last_login == '0000-00-00 00:00:00' 
                             || $_SESSION['prefs']['PREF_MODIFIED']!==1) {
-                                 $_SESSION['first_login'] = true;
+                                
+                             $_SESSION['first_login'] = true;
                          }
 
                          $sql = "UPDATE ".TABLE_PREFIX."members SET creation_date=creation_date, last_login='$now' WHERE member_id=$_SESSION[member_id]";
@@ -246,8 +268,15 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
                     }
                  }
                  
+                 #User has failed to login. Unset the session.
+                 unset_session(); 
+                 
              }
              else{
+                 
+                 #User has failed to login. Unset the session.
+                 unset_session(); 
+                 
                  #invalid credentials are detected.
                  $msg->addError('OPENID_INVALID_LOGIN');
                  header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
@@ -256,6 +285,9 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
          }
     }catch (Exception $e){
  
+       #User has failed to login. Unset the session.
+       unset_session(); 
+       
        $msg->addError(array('OPENID_EXCEPTION_OCCURED',$e->getMessage(),$e->getCode()));
        header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
        exit;
@@ -263,5 +295,6 @@ define('OPENID_MOD_DIR', AT_BASE_HREF.'mods/openid/');
 
 
 ?>
+
 
 
