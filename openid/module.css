@@ -23,13 +23,18 @@ p#openid_text{
     margin-left: 40px;
     margin-right: 40px;
     font-size: 1.3em;
-    font-family: Helevatica;
+}
+
+p#openid_content_text{
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    font-size: 20px;
+    color: #444;
 }
 
 
 #openid_vertical_divider {
-    width: 50%;
-    padding-left: 30px;
+    width: 40%;
+    padding-left: 65px;
     padding-right: 15px;
     border-left-style: solid;
     border-left-width: 1px;
@@ -37,7 +42,7 @@ p#openid_text{
     height: 250px;
     position: absolute;
     left: 50%;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 #openid_indicator_arrow::before {
@@ -108,4 +113,5 @@ a#openid_twitter:active  { background-position:0px -215px; }
 a#openid_google          { background-position:0px -258px; }
 a#openid_google:hover    { background-position:0px -301px; }
 a#openid_google:active   { background-position:0px -344px; }
+
 
