@@ -10,10 +10,13 @@
 /* modify it under the terms of the GNU General Public License         */
 /* as published by the Free Software Foundation.		       */
 /***********************************************************************/
-// $Id: openid_utility.php 10055 2010-06-29 20:30:24Z scari $
+// $Id: openid_utility.php 10055 2010-06-29 20:30:24Z Author: scari     $
 
 /**
  * This class provides a OpenID (1.1 and 2.0) authentication with yadis discovery.
+ * Also it supports the google specific UI extensions and pape extensions, which 
+ * can be optionally added to the login system. The AX parameters are extended to
+ * support google specific params.
  *
  * The library requires curl or http/https stream wrappers enabled.
  * @author Scari
@@ -22,33 +25,33 @@
  */
 class OpenIDUtility
 {
-    public $returnUrl,
-            $required = array(),
-            $optional = array(),
-            $verify_peer = null,
-            $capath = null,
-            $cainfo = null,
-            $data,
-            $display_favicon = false,
-            $ui_mode = 'unknown',
-            $max_auth_age = '0',
-            $pape_enabled = false;
+    public $returnUrl,                   #URL to be returned from the login.
+            $required = array(),         #Required params.
+            $optional = array(),         #Optional Params
+            $verify_peer = null,         #Whether client is to be verified with CA certificate
+            $capath = null,              #Path to CA certificate
+            $cainfo = null,              #Information on CA
+            $data,                       #Data pool to fetch values. GET+POST
+            $display_favicon = false,    #Displays the favicon in the OpenID approval page if set to "true"-UI extension
+            $ui_mode = 'unknown',        #Use UI Extension mode. Either 'popup' or 'x-has-session'
+            $max_auth_age = '0',         #Sets the maximum acceptable time (in seconds) since the user last authenticated.
+            $pape_enabled = false;       #Is PAPE enabled/available?
     
-    private $identity, 
-            $claimed_id;
+    private $identity,                   #Identity sent to the OpenID provider.
+            $claimed_id;                 #Identity returned from provider. Used for verification.
     
-    protected $server,
-            $version, 
-            $trustRoot,                 // Root domain to be trusted, Used as realam.
-            $aliases, 
-            $identifier_select = false,
-            $ax = false,
-            $sreg = false,
-            $ui = false,
-            $ui_icon_support = false,
-            $ui_popup_support = false,
-            $pape = false,
-            $setup_url = null;
+    protected $server,                   #Server endpoint. Found with openid discovery.
+            $version,                    #Supports OpenID v2, OpenID v1.1.
+            $trustRoot,                  #Root domain to be trusted, Used as realam.
+            $aliases,                    #Aliases for AX attributes.
+            $identifier_select = false,  #Use identifier_select name space.
+            $ax = false,                 #Use attribute exchange(AX) extention.
+            $sreg = false,               #Use simple registration(SREG) extention.
+            $ui = false,                 #Use UI Extension.
+            $ui_icon_support = false,    #UI icon is supported or not.
+            $ui_popup_support = false,   #UI popup is supported or not
+            $pape = false,               #USE PAPE Extension
+            $setup_url = null;           #Used for immediate mode, v1.1.
     
     static protected $ax_to_sreg = array(
         'namePerson/friendly'     => 'nickname',
@@ -78,7 +81,8 @@ class OpenIDUtility
         $uri = rtrim(preg_replace('#((?<=\?)|&)openid\.[^&]+#', '', $_SERVER['REQUEST_URI']), '?');
         $this->returnUrl = $this->trustRoot . $uri;
 
-        $this->data = $_POST + $_GET; # OPs may send data as POST or GET.
+        #OPs may send data as POST or GET. Create a pool of data.
+        $this->data = $_POST + $_GET; 
 
         /* Utility class needs either curl or http/https stream wrappers enabled.
          * Check for the requirements.
@@ -352,7 +356,7 @@ class OpenIDUtility
 
     /**
      * Helper function used to scan for <meta>/<link> tags and extract information
-     * from them
+     * from them. Mainly used in verification.
      */
     protected function htmlTag($content, $tag, $attrName, $attrValue, $valueName)
     {
@@ -841,4 +845,5 @@ class OpenIDUtility
         return $this->getSregAttributes();
     }
 }
+
 
