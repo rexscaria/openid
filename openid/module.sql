@@ -17,10 +17,12 @@ CREATE TABLE `openid_settings` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #Google settings
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLED','enable');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_APIKEY','');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLED','true');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_REALM','');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MODE','checkid_setup');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_PAPE','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MAX_AUTH_AGE','60');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_UI_MODE','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_MODE','x-has-session');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_ICON','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_QUERY_COUNTRY','false');
@@ -29,11 +31,11 @@ INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_REQUEST_OAUTH','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_KEY','');
 
 #FB settings.
-INSERT INTO `openid_settings` VALUES ('OPENID_FB_ENABLED','disable');
+INSERT INTO `openid_settings` VALUES ('OPENID_FB_ENABLED','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_FB_APIKEY','');
 
 #Twitter settings.
-INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_ENABLED','disable');
+INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_ENABLED','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_APIKEY','');
 
 
@@ -50,6 +52,5 @@ INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_EXCEPTION_OCC
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBACK_OPENID_LOGIN_SUCCESS','Successfully loged in with OpenID.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_INVALID_LOGIN','<b>Invalid request!!</b> Use valid OpenID credentials.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_MASTERLIST_ENABLED','The masterlist is enabled. OpenID module can\'t work properly with masterlist. To disable this functionality go to <a href="admin/config_edit.php">System Preferences</a>.',NOW(),'');
-
 
 
