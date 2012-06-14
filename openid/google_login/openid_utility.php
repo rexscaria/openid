@@ -35,7 +35,8 @@ class OpenIDUtility
             $display_favicon = false,    #Displays the favicon in the OpenID approval page if set to "true"-UI extension
             $ui_mode = 'unknown',        #Use UI Extension mode. Either 'popup' or 'x-has-session'
             $max_auth_age = '0',         #Sets the maximum acceptable time (in seconds) since the user last authenticated.
-            $pape_enabled = false;       #Is PAPE enabled/available?
+            $use_pape = false,       #Use PAPE if available
+            $use_ui = false;             #Use UI extension if available
     
     private $identity,                   #Identity sent to the OpenID provider.
             $claimed_id;                 #Identity returned from provider. Used for verification.
@@ -71,6 +72,7 @@ class OpenIDUtility
     
     function __construct()
     {
+        #TODO: The _SERVER can be unsafe.
         $this->trustRoot = 'http://' . $_SERVER['HTTP_HOST'];
         if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')
             || (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
@@ -605,7 +607,7 @@ class OpenIDUtility
     
     protected function papeParams(){
         $params = array();
-        if($this->pape && $this->pape_enabled && isset($this->max_auth_age)){
+        if($this->pape && $this->use_pape && isset($this->max_auth_age)){
             $params['openid.ns.pape'] = 'http://specs.openid.net/extensions/pape/1.0';
             $params['openid.pape.max_auth_age'] = intval($this->max_auth_age);
         } 
@@ -654,7 +656,7 @@ class OpenIDUtility
         }
         
         #UI extensions
-        if($this->ui){
+        if($this->ui && $this->use_ui){
             $params += $this->uiParams();
         }
         
@@ -845,5 +847,4 @@ class OpenIDUtility
         return $this->getSregAttributes();
     }
 }
-
 
