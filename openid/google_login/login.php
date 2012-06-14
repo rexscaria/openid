@@ -305,13 +305,13 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  }
                  
                  #User has failed to login. Unset the session.
-                 unsetSession(); 
+                 unsetSession($db); 
                  
              }
              else{
                  
                  #User has failed to login. Unset the session.
-                 unsetSession(); 
+                 unsetSession($db); 
                  
                  #invalid credentials are detected.
                  $msg->addError('OPENID_INVALID_LOGIN');
@@ -322,7 +322,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
     }catch (Exception $e){
  
        #User has failed to login. Unset the session.
-       unsetSession(); 
+       unsetSession($db); 
        
        $msg->addError(array('OPENID_EXCEPTION_OCCURED',$e->getMessage(),$e->getCode()));
        header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');

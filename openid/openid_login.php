@@ -19,7 +19,7 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 
 require ('openid.vitals.inc.php');
 #Unset the session first.
-unsetSession();
+unsetSession($db);
 
 $_custom_css = $_base_path . 'mods/openid/module.css'; // use a custom stylesheet
 require (AT_INCLUDE_PATH.'header.inc.php');
