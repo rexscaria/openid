@@ -20,7 +20,7 @@ CREATE TABLE `openid_settings` (
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLED','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_REALM','');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MODE','checkid_setup');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_PAPE','true');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_PAPE','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MAX_AUTH_AGE','60');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_UI_MODE','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_MODE','x-has-session');
