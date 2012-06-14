@@ -18,8 +18,8 @@ $_user_location	= 'public';
 define('AT_INCLUDE_PATH', '../../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 #importing required files
-require 'openid_utility.php';
-require '../openid_util_fns.php';
+require ('openid_utility.php');
+require ('../openid.vitals.inc.php');
 
 #callback URL
 define('CALLBACK_URL',"http://".$_SERVER['SERVER_NAME'].AT_BASE_HREF."mods/openid/login.php" );
@@ -46,7 +46,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                   #setting call back url
                   //$openid->returnUrl = CALLBACK_URL;
                   #Select openid mode as 'checkid_setup'
-                  $immediate_mode = false;
+                  $immediate_mode = ($_openid_config['OPENID_GOOGLE_MODE'] == 'checkid_immediate')?  false : true;
                   #Set the required ax params.
                   $openid->required = array(
                         'email'       =>   'contact/email',
@@ -57,19 +57,45 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                       );
                                 
                   #Set UI params
-                  $openid->display_favicon = true;
-                  $openid->ui_mode='x-has-session';
+                  if($_openid_config['OPENID_GOOGLE_ENABLE_UI_MODE'] != 'false'){
+                       $openid->use_ui = true;
+                       $openid->display_favicon = $_openid_config['OPENID_GOOGLE_UI_ICON'];
+                       $openid->ui_mode= $_openid_config['OPENID_GOOGLE_UI_MODE'];
+                  }else
+                      $openid->use_ui = false;
+                 
                                 
                   #Set pape params
-                  $openid->pape_enabled = false;
-                  $openid->max_auth_age = '60';
+                  if($_openid_config['OPENID_GOOGLE_ENABLE_PAPE'] == 'true'){
+                      $openid->use_pape = true;
+                      $openid->max_auth_age = $_openid_config['OPENID_GOOGLE_MAX_AUTH_AGE'];
+                  }else
+                      $openid->use_pape = false;
+                  
+                  /*
+                   * 
+                   * The OAuth is inactive now. But may active in future.
+                   * 
+                  #Set ext2(OAuth 2.0) params
+                  $oauth_str = '';
+                  if($_openid_config['OPENID_GOOGLE_REQUEST_OAUTH'] == 'true' 
+                          && $_openid_config['OPENID_GOOGLE_OAUTH_CONSUMER_KEY'] != ''){
+                      #TODO: Add scope.
+                      $oauthNs = urlencode("http://specs.openid.net/extensions/oauth/1.0");
+                      $scope = urlencode('http://gdata.youtube.com'.' '.
+                               'https://docs.google.com/feeds/'.' '.
+                               'https://www.google.com/calendar/feeds/');
+                      $oauth_str = '&openid.ns.ext2='.$oauthNs.
+                                             '&openid.ext2.consumer='.urlencode($_openid_config['OPENID_GOOGLE_OAUTH_CONSUMER_KEY']).
+                                             '&openid.ext2.scope='.$scope;
+                  }*/
                                 
                   /*
                   * Now everything is set. Find the end point with OpenID
                   * discovery and redirect to the authentication url,
                   */
                   
-                  header('Location: ' . $openid->authUrl());
+                  header('Location: ' . $openid->authUrl() .$oauth_str);
                   exit;
          }
          else if($openid->mode=='cancel'){
@@ -114,7 +140,9 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                      $status = AT_STATUS_STUDENT;
                      $now = date('Y-m-d H:i:s');
                      $default_private_email = 1;
-                     $login_name = $openid_fname . $openid_lname;
+                     
+                     #Its time to select a login name.
+                     $login_name = getFreeLoginName($db, $openid_fname, $openid_lname,$openid_email);
 
                      $sql = "INSERT INTO ".TABLE_PREFIX."members 
 		              (login,
@@ -174,6 +202,10 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
 			 $_SESSION['is_guest']	= 0;
 			 $_SESSION['lang'] = $_SESSION[lang];
                          $_SESSION['first_login'] = true;
+                         
+                         #Its an OpenID session
+                         $_SESSION['is_openid'] = true;
+                         $_SESSION['openid_claimed_id'] = $openid->identity;
 			 session_write_close();
 
 			 header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
@@ -246,6 +278,10 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                          $now = date('Y-m-d H:i:s');
                          $default_course_id = 0;
                          
+                         #Its an OpenID session
+                         $_SESSION['is_openid'] = true;
+                         $_SESSION['openid_claimed_id'] = $openid->identity;
+                         
                          $_SESSION['first_login'] = false;
                          if ($last_login == null || $last_login == '' 
                             || $last_login == '0000-00-00 00:00:00' 
@@ -269,13 +305,13 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  }
                  
                  #User has failed to login. Unset the session.
-                 unset_session(); 
+                 unsetSession(); 
                  
              }
              else{
                  
                  #User has failed to login. Unset the session.
-                 unset_session(); 
+                 unsetSession(); 
                  
                  #invalid credentials are detected.
                  $msg->addError('OPENID_INVALID_LOGIN');
@@ -286,7 +322,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
     }catch (Exception $e){
  
        #User has failed to login. Unset the session.
-       unset_session(); 
+       unsetSession(); 
        
        $msg->addError(array('OPENID_EXCEPTION_OCCURED',$e->getMessage(),$e->getCode()));
        header('Location: ' .AT_BASE_HREF.'mods/openid/openid_login.php');
@@ -295,6 +331,5 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
 
 
 ?>
-
 
 
