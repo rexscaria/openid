@@ -23,6 +23,10 @@
  * @copyright Copyright (c) 2012, Scari
  * 
  */
+
+#include consts.
+require('google_openid_consts.php');
+
 class OpenIDUtility
 {
     public $returnUrl,                   #URL to be returned from the login.
@@ -846,5 +850,46 @@ class OpenIDUtility
         }
         return $this->getSregAttributes();
     }
+    
+    
+    /**
+     *OAuth Extension related functions.
+     *  @see https://developers.google.com/accounts/docs/OpenID#oauth 
+     */
+    function isOAuthRecieved(){        
+        if(isset($this->data['openid_ns_ext2']) &&
+                isset($this->data['openid_ext2_scope']) &&
+                isset($this->data['openid_ext2_request_token']) &&
+                $this->data['openid_ns_ext2'] == OAUTH_EXT2_NAMESPACE){
+            return true;
+        }
+        return false;
+    }
+    
+    function getOAuthRequestToken($decode=true) {
+        $code = ($decode)? 'urldecode': 'urlencode';
+        if($this->isOAuthRecieved())
+            return $code(($this->data['openid_ext2_request_token']));
+        return NULL;
+    }
+    
+    function getOAuthScope($decode=true) {
+        $code = ($decode)? 'urldecode': 'urlencode';
+        if($this->isOAuthRecieved())
+            return $code(($this->data['openid_ext2_scope']));
+        return NULL;
+    }
+    
+    function createOAuthURL($scopes,$key) {
+        if(!$key && empty($scopes))
+            return NULL;
+        $oauthNs = urlencode(OAUTH_EXT2_NAMESPACE);
+        $scopeString   = urlencode(implode(' ', $scopes));
+        return '&openid.ns.ext2='.$oauthNs.
+                     '&openid.ext2.consumer='.urlencode($key).
+                     '&openid.ext2.scope='.$scopeString;
+    }
+    
+    
 }
 
