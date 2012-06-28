@@ -21,4 +21,3 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 Hello Administrator!! :)
 
 <?php require (AT_INCLUDE_PATH.'footer.inc.php'); ?>
-
