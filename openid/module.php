@@ -28,9 +28,9 @@ $this->_pages['mods/openid/index.php']['text']      = _AT('openid_text');
  * add the admin pages when needed.
  */
 if (admin_authenticate(AT_ADMIN_PRIV_HELLO_WORLD, TRUE) || admin_authenticate(AT_ADMIN_PRIV_ADMIN, TRUE)) {
-	$this->_pages[AT_NAV_ADMIN] = array('mods/openid/index_admin.php');
-	$this->_pages['mods/openid/index_admin.php']['title_var'] = 'openid_settings';
-	$this->_pages['mods/openid/index_admin.php']['parent']    = AT_NAV_ADMIN;
+	$this->_pages[AT_NAV_ADMIN] = array('mods/openid/openid_settings.php');
+	$this->_pages['mods/openid/openid_settings.php']['title_var'] = 'openid_settings';
+	$this->_pages['mods/openid/openid_settings.php']['parent']    = AT_NAV_ADMIN;
 }
 
 /*******
