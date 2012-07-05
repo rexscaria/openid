@@ -126,6 +126,10 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  $openid_lname    = isset($attr['namePerson/last'])?$attr['namePerson/last']:NULL;
                  $openid_language = isset($attr['pref/language'])?$attr['pref/language']:NULL;
                  $openid_country  = isset($attr['contact/country/home'])?$attr['contact/country/home']:NULL;
+                 
+                 if(isset($openid_country))
+                     $openid_country = $_openid_countries[$openid_country];
+                 
                  if(!$openid_email && !$openid_fname && !$openid_lname)
                      throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
                  
