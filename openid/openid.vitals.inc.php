@@ -23,7 +23,7 @@ while ($ret_row = mysql_fetch_assoc($resultset)) {
 }
 
 
-
+$_openid_countries = array(
                 'Afghanistan'=> 'AF',
                 'Albania'=> 'AL',
                 'Algeria'=> 'DZ',
