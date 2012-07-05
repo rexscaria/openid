@@ -29,7 +29,7 @@ CREATE TABLE `openid_oauth_request_token` (
 
 #Google settings
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLED','true');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_REALM','');
+#INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_REALM','');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MODE','checkid_setup');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_PAPE','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_MAX_AUTH_AGE','60');
@@ -38,15 +38,16 @@ INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_MODE','x-has-session');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_ICON','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_QUERY_COUNTRY','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_QUERY_LANGUAGE','false');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_REQUEST_OAUTH','true');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_KEY','');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_REQUEST_OAUTH','false');
+INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_KEY','atutordev.co.cc');
 
 #FB settings.
 INSERT INTO `openid_settings` VALUES ('OPENID_FB_ENABLED','false');
-INSERT INTO `openid_settings` VALUES ('OPENID_FB_APIKEY','');
+INSERT INTO `openid_settings` VALUES ('OPENID_FB_APP_CONSUMER_KEY','');
+INSERT INTO `openid_settings` VALUES ('OPENID_FB_APP_CONSUMER_SECRET','');
 
 #Twitter settings.
-INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_ENABLED','false');
+INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_ENABLED','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_APP_CONSUMER_KEY','');
 INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_APP_CONSUMER_SECRET','');
 
@@ -65,5 +66,7 @@ INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBACK_OPENID_LOGIN_SUCC
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_INVALID_LOGIN','<b>Invalid request!!</b> Use valid OpenID credentials.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_MASTERLIST_ENABLED','The masterlist is enabled. OpenID module can\'t work properly with masterlist. To disable this functionality go to <a href="admin/config_edit.php">System Preferences</a>.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_TWITTER_KEY_FAILED','The twitter app keys are failed.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBBACK_OPENID_SETTINGS_SAVED_SUCCESS','Your OpenID settings are successfully saved.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_SETTINGS_SAVED_FAILED','Failed to save some OpenID settings. Check you settings.',NOW(),'');
 
 
