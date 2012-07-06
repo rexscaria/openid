@@ -39,8 +39,8 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
         
         #Create OpenID Utility object
         $openid = new OpenIDUtility;        
-        if (isset($_GET['login']) && $_GET['login']=='true' && 
-            isset($_GET['openid_provider']) &&  $_GET['openid_provider'] == 'google' &&
+        if (isset($_GET['login'], $_GET['openid_provider']) && $_GET['login']=='true' && 
+            $_GET['openid_provider'] == 'google' &&
             !$openid->mode) {
                   #Set Google indentity URL
                   $openid->identity = GOOGLE_IDENTITY_URL;
