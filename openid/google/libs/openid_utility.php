@@ -857,9 +857,7 @@ class OpenIDUtility
      *  @see https://developers.google.com/accounts/docs/OpenID#oauth 
      */
     function isOAuthRecieved(){        
-        if(isset($this->data['openid_ns_ext2']) &&
-                isset($this->data['openid_ext2_scope']) &&
-                isset($this->data['openid_ext2_request_token']) &&
+        if(isset($this->data['openid_ns_ext2'], $this->data['openid_ext2_scope'], $this->data['openid_ext2_request_token']) &&
                 $this->data['openid_ns_ext2'] == OAUTH_EXT2_NAMESPACE){
             return true;
         }
