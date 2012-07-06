@@ -66,7 +66,7 @@ INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBACK_OPENID_LOGIN_SUCC
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_INVALID_LOGIN','<b>Invalid request!!</b> Use valid OpenID credentials.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_MASTERLIST_ENABLED','The masterlist is enabled. OpenID module can\'t work properly with masterlist. To disable this functionality go to <a href="admin/config_edit.php">System Preferences</a>.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_TWITTER_KEY_FAILED','The twitter app keys are failed.',NOW(),'');
-INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBBACK_OPENID_SETTINGS_SAVED_SUCCESS','Your OpenID settings are successfully saved.',NOW(),'');
-INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_SETTINGS_SAVED_FAILED','Failed to save some OpenID settings. Check you settings.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBBACK_OPENID_SETTINGS_SAVE_SUCCESS','Your OpenID settings are successfully saved.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_SETTINGS_SAVE_FAILED','Failed to save some OpenID settings. Check you settings.',NOW(),'');
 
 
