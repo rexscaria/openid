@@ -52,7 +52,7 @@ if(isset($_POST['submit']) && $_POST['submit']=='submit'){
             $params['OPENID_GOOGLE_ENABLE_UI_MODE'] = 'true';
             
             #Set ui mode
-            if(isset($_POST['google_select_ui_mode']) && preg_match('(x-has-session)|(popup)',$_POST['google_select_ui_mode']))
+            if(isset($_POST['google_select_ui_mode']) && preg_match('/(?:x-has-session)|(?:popup)/',$_POST['google_select_ui_mode']))
                 $params['OPENID_GOOGLE_UI_MODE'] = $_POST['google_select_ui_mode'];
             else
                 $params['OPENID_GOOGLE_UI_MODE'] = 'x-has-session';
@@ -138,9 +138,9 @@ if(isset($_POST['submit']) && $_POST['submit']=='submit'){
     
     #Save params to db
     if(!storeSettingsToDB($params))
-        $msg->addError('OPENID_SETTINGS_SAVED_FAILED');
+        $msg->addError('OPENID_SETTINGS_SAVE_FAILED');
     else
-        $msg->addFeedback('OPENID_SETTINGS_SAVED_SUCCESS');
+        $msg->addFeedback('OPENID_SETTINGS_SAVE_SUCCESS');
     
     header('Location: '.AT_BASE_HREF.'mods/openid/openid_settings.php');
     exit;
