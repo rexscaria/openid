@@ -17,7 +17,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
 <div class="openid-settings-form">
-  <form id="openid_settings_form" action="mods/openid/openid_settings.php" method="post" accept-charset="utf-8">
+  <form id="openid_settings_form" action="mods/openid/openid_settings.php" method="post" accept-charset="utf-8" autocomplete="off">
     <ul class="settings">
       <fieldset class="main-fieldset">
         <li>
@@ -141,13 +141,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>
                 Twitter app Consumer key :
               </dt>
-              <dd><input type="text" name="twitter_consumer_key" id="twitter_consumer_key"  value="<?php echo $_openid_config['OPENID_TWITTER_APP_CONSUMER_KEY'] ?>" /></dd>
+              <dd><input type="text" name="twitter_consumer_key" id="twitter_consumer_key" size="40"  value="<?php echo $_openid_config['OPENID_TWITTER_APP_CONSUMER_KEY'] ?>" /></dd>
             </dl>
             <dl>
               <dt>
                 Twitter app Consumer secret key :
               </dt>
-              <dd><input type="text" name="twitter_consumer_secret_key" id="twitter_consumer_secret_key" value="<?php echo $_openid_config['OPENID_TWITTER_APP_CONSUMER_SECRET'] ?>"  /></dd>
+              <dd><input type="text" name="twitter_consumer_secret_key" size="40" id="twitter_consumer_secret_key" value="<?php echo $_openid_config['OPENID_TWITTER_APP_CONSUMER_SECRET'] ?>"  /></dd>
             </dl>
           </div>
         </fieldset>
@@ -171,13 +171,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>
                 Facebook app Consumer key :
               </dt>
-              <dd><input type="text" name="fb_consumer_key" id="fb_consumer_key"  value="<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_KEY'] ?>" /></dd>
+              <dd><input type="text" name="fb_consumer_key" id="fb_consumer_key"  size="40" value="<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_KEY'] ?>" /></dd>
             </dl>
             <dl>
               <dt>
                 Facebook app Consumer secret key :
               </dt>
-              <dd><input type="text" name="fb_consumer_secret_key" id="fb_consumer_secret_key"  value=""<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_SECRET_KEY'] ?> /></dd>
+              <dd><input type="text" name="fb_consumer_secret_key" size="40" id="fb_consumer_secret_key"  value=""<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_SECRET_KEY'] ?> /></dd>
             </dl>
           </div>
         </fieldset>
