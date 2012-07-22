@@ -47,7 +47,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                               if($_openid_config['OPENID_GOOGLE_ENABLED'] == 'true')  
                                     echo '<li><a href="mods/openid/google/login.php?login=true&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">Login with Google</a></li>'; 
                               if($_openid_config['OPENID_FB_ENABLED'] == 'true') 
-                                    echo '<li><a href="mods/openid/facebook_login" class="openid_one-click-login openid_social_label" id="openid_facebook">Login with Facebook</a></li>';
+                                    echo '<li><a href="mods/openid/facebook/login.php" class="openid_one-click-login openid_social_label" id="openid_facebook">Login with Facebook</a></li>';
                               if($_openid_config['OPENID_TWITTER_ENABLED'] == 'true') 
                                     echo '<li><a href="mods/openid/twitter/login_twitter.php?login=true&openid_provider=twitter" class="openid_one-click-login openid_social_label" id="openid_twitter">Login with Twitter</a></li>'; 
                         ?>
