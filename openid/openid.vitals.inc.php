@@ -271,7 +271,7 @@ function unsetSession($db){
                  unset($_SESSION['is_super_admin']);
                  unset($_SESSION['dd_question_ids']);
                  unset($_SESSION['is_openid']);
-                 unset($_SESSION['openid_claimed_id']);
+                 unset($_SESSION['openid_provider']);
 
                  $_SESSION['prefs']['PREF_FORM_FOCUS'] = 1;                
 } 
@@ -282,7 +282,7 @@ function isExistLogin($db, $login) {
     return (mysql_num_rows($result)>0);
 }
 
-function getFreeLoginName($db, $fname, $lname, $email) {
+function getFreeLoginName($db, $fname, $lname, $email, $suggestion) {
     
     /*
      * TODO : Make it simple
@@ -296,19 +296,20 @@ function getFreeLoginName($db, $fname, $lname, $email) {
      */
    
     preg_match('/[^@]+/', $email, $match);
-    $free_login_name = !isExistLogin($db, $fname . $lname)? $fname . $lname
-            : (!isExistLogin($db, $lname.$fname)? $lname.$fname 
-            : (!isExistLogin($db,$match[0])? $match[0]
-            : (!isExistLogin($db, $fname)? $fname
-            : (!isExistLogin($db, $lname)? $lname
-            : (!isExistLogin($db, $fname.'_'.$lname)? $fname.'_'.$lname
-            : (!isExistLogin($db, $lname.'_'.$fname)? $lname.'_'.$fname
-            : (!isExistLogin($db, $fname.'.'.$lname)? $fname.'.'.$lname
-            : (!isExistLogin($db, $lname.'.'.$fname)? $lname.'.'.$fname 
-            : (!isExistLogin($db, $fname.'-'.$lname)? $fname.'-'.$lname
-            : (!isExistLogin($db, $lname.'-'.$fname)? $lname.'-'.$fname 
-            : NULL
-              ))))))))));
+    $free_login_name = (isset($suggestion) && !isExistLogin($db, $suggestion))? $suggestion
+        : (!isExistLogin($db, $fname . $lname))? $fname . $lname
+        : (!isExistLogin($db, $lname.$fname)? $lname.$fname 
+        : (!isExistLogin($db,$match[0])? $match[0]
+        : (!isExistLogin($db, $fname)? $fname
+        : (!isExistLogin($db, $lname)? $lname
+        : (!isExistLogin($db, $fname.'_'.$lname)? $fname.'_'.$lname
+        : (!isExistLogin($db, $lname.'_'.$fname)? $lname.'_'.$fname
+        : (!isExistLogin($db, $fname.'.'.$lname)? $fname.'.'.$lname
+        : (!isExistLogin($db, $lname.'.'.$fname)? $lname.'.'.$fname 
+        : (!isExistLogin($db, $fname.'-'.$lname)? $fname.'-'.$lname
+        : (!isExistLogin($db, $lname.'-'.$fname)? $lname.'-'.$fname 
+        : NULL
+            ))))))))));
     if($free_login_name==NULL){
         #Append numbers to the end.
         do{
@@ -344,11 +345,8 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
      return mysql_query($sql, $db) or die(mysql_error());
 }
 
-////////////////////////////////////////////////////
 
-
-
-function registerAndLogin($openid_obj, $openid_fname, $openid_lname,$openid_email, $openid_country) {
+function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $openid_email, $openid_country, $username_sugestion) {
         
     global $_config;
     global $msg;
@@ -368,7 +366,7 @@ function registerAndLogin($openid_obj, $openid_fname, $openid_lname,$openid_emai
         $default_private_email = 1;
 
         #Its time to select a login name.
-        $login_name = getFreeLoginName($db, $openid_fname, $openid_lname,$openid_email);
+        $login_name = getFreeLoginName($db, $openid_fname, $openid_lname,$openid_email, $username_sugestion);
 
         $sql = "INSERT INTO ".TABLE_PREFIX."members 
                 (login,
@@ -409,7 +407,6 @@ function registerAndLogin($openid_obj, $openid_fname, $openid_lname,$openid_emai
 
             #If en_id is set, automatically enroll into courses that links with en_id and go to "My Start Page"
             $member_id = $m_id;
-            $default_course_id = 0;
 
             require (AT_INCLUDE_PATH.'html/auto_enroll_courses.inc.php');
 
@@ -421,7 +418,7 @@ function registerAndLogin($openid_obj, $openid_fname, $openid_lname,$openid_emai
 
 
             #Write the token to db, if oauth is requested.
-            if($openid_obj->isOAuthRecieved()){
+            if(isset($openid_obj) && $openid_obj->isOAuthRecieved()){
                 addOAuthTokenToDB($openid_obj, $m_id, TABLE_PREFIX, OPENID_PROVIDER);
             }
 
@@ -432,23 +429,19 @@ function registerAndLogin($openid_obj, $openid_fname, $openid_lname,$openid_emai
             $_SESSION['course_id']  = 0;
             $_SESSION['login'] = $login_name;
             assign_session_prefs(unserialize(stripslashes($_config[pref_defaults])), 1);
-            $_SESSION['is_guest']	= 0;
+            $_SESSION['is_guest'] = 0;
             $_SESSION['lang'] = $_SESSION[lang];
             $_SESSION['first_login'] = true;
 
             #Its an OpenID session
             $_SESSION['is_openid'] = true;
-            $_SESSION['openid_claimed_id'] = $openid_obj->identity;
+            $_SESSION['openid_provider'] = OPENID_PROVIDER;
             session_write_close();
-
-            header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
-            exit;
-
         }
 }
 
 
-function makeLogin( $mysql_result, $openid_obj) {
+function makeLoginWithOpenID( $mysql_result, $openid_obj) {
 
     global $_config;
     global $msg;
@@ -504,7 +497,7 @@ function makeLogin( $mysql_result, $openid_obj) {
 
 
             #Write the token to db, if oauth is requested.
-            if($openid_obj->isOAuthRecieved()){  
+            if(isset($openid_obj) && $openid_obj->isOAuthRecieved()){  
                 addOAuthTokenToDB($openid_obj, $m_id, TABLE_PREFIX, OPENID_PROVIDER);
             }                
 
@@ -524,7 +517,7 @@ function makeLogin( $mysql_result, $openid_obj) {
 
             #Its an OpenID session
             $_SESSION['is_openid'] = true;
-            $_SESSION['openid_claimed_id'] = $openid_obj->identity;
+            $_SESSION['openid_provider'] = OPENID_PROVIDER;
 
             $_SESSION['first_login'] = false;
             if ($last_login == null || $last_login == '' 
@@ -542,9 +535,6 @@ function makeLogin( $mysql_result, $openid_obj) {
             mysql_query($sql, $db);
 
             $msg->addFeedback('LOGIN_SUCCESS');
-
-            header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
-            exit;
         }
 }
 
@@ -562,5 +552,19 @@ function storeSettingsToDB($settings) {
     return true;
 }
 
+
+function generateCallBackURL($custom_url) {
+    $root = 'http://' . $_SERVER['HTTP_HOST'];
+    if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')
+            || (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+            && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+        ) {
+            $root = 'https://' . $_SERVER['HTTP_HOST'];
+    }
+    $root = isset($custom_url)? $custom_url : $root;
+    $uri = rtrim(preg_replace('#((?<=\?)|&)openid\.[^&]+#', '', $_SERVER['REQUEST_URI']), '?');
+    return $root . $uri;
+    
+}
 
 ?>
