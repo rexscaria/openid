@@ -107,16 +107,14 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                   
                   header('Location: ' . $openid->authUrl($immediate_mode) .$oauth_str);
                   exit;
-         }
-         else if($openid->mode=='cancel'){
+         }else if($openid->mode=='cancel'){
             
             #TODO: Should `cancel` be considered as failed login attempt?
             $msg->addError('OPENID_USER_CANCELLED_REQUEST');
             header('Location: ' .OPENID_LOGIN_PAGE_URL);
             exit;
             
-         }
-         else{
+         }else{
              #Google has granted the details. Now, Validate the details before applying it.
              $is_valid = $openid->validate();
              if($is_valid){
@@ -133,6 +131,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  if(!$openid_email && !$openid_fname && !$openid_lname)
                      throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
                  
+                 $default_course_id = 0;
                  #Check whether user exists in db
                  $result = mysql_query("SELECT member_id, login, status, preferences, language, last_login FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
                  if(!$result){
@@ -141,17 +140,20 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  
                  if(mysql_num_rows($result)==0){
                      #Email doesn't exist in DB. Register the user.
-                     registerAndLogin($openid, $openid_fname, $openid_lname, $openid_email, $openid_country);                     
+                     registerAndLoginWithOpenID($openid, $openid_fname, $openid_lname, $openid_email, $openid_country, NULL);                     
+                     header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
+                     exit;
                  }else{
                      #User has already registered. It's time to login.
-                     makeLogin( $result, $openid);
+                     makeLoginWithOpenID( $result, $openid);
+                     header('Location: '.AT_BASE_HREF.'bounce.php?course='.$default_course_id);
+                     exit;
                  }
                  
                  #User has failed to login. Unset the session.
                  unsetSession($db); 
                  
-             }
-             else{
+             }else{
                  
                  #User has failed to login. Unset the session.
                  unsetSession($db); 
