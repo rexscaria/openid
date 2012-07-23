@@ -358,6 +358,12 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
             header('Location: '.OPENID_LOGIN_PAGE_URL);
             exit;
         }
+        
+        $result = mysql_query("SELECT * FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
+	if (mysql_num_rows($result) != 0) {
+            $msg->addError('LOGIN_EXISTS');
+            return;
+	}
 
 
         #No Email conformation is needed for OpenID login.
