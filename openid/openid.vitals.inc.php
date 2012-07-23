@@ -452,6 +452,13 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
     global $_config;
     global $msg;
     global $db;
+    
+        #Shouldn't login if account exists.
+	if (mysql_num_rows($mysql_result) == 0) {
+            $msg->addError('OPENID_USER_NOT_REGITERED');
+            return;
+	}
+    
         #Garbage collect for maximum login attempts table
         if (rand(1, 100) == 1){
             $sql = 'DELETE FROM '.TABLE_PREFIX.'member_login_attempt WHERE expiry < '. time();
