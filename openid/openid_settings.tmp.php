@@ -177,7 +177,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>
                 Facebook app Consumer secret key :
               </dt>
-              <dd><input type="text" name="fb_consumer_secret_key" size="40" id="fb_consumer_secret_key"  value=""<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_SECRET_KEY'] ?> /></dd>
+              <dd><input type="text" name="fb_consumer_secret_key" size="40" id="fb_consumer_secret_key"  value="<?php echo $_openid_config['OPENID_FB_APP_CONSUMER_SECRET'] ?>" /></dd>
             </dl>
           </div>
         </fieldset>
