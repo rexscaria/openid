@@ -272,6 +272,9 @@ function unsetSession($db){
                  unset($_SESSION['dd_question_ids']);
                  unset($_SESSION['is_openid']);
                  unset($_SESSION['openid_provider']);
+                 unset($_SESSION['openid_twitter_oauth_token']);
+                 unset($_SESSION['openid_twitter_oauth_token_secret']);
+                 unset($_SESSION['openid_twitter_access_token']);
 
                  $_SESSION['prefs']['PREF_FORM_FOCUS'] = 1;                
 } 
