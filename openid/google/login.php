@@ -125,10 +125,15 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  $openid_language = isset($attr['pref/language'])?$attr['pref/language']:NULL;
                  $openid_country  = isset($attr['contact/country/home'])?$attr['contact/country/home']:NULL;
                  
+                 #Can we continue without mail? . No, we can't
+                if(empty($openid_email) && !filter_var($openid_email, FILTER_VALIDATE_EMAIL))
+                    throw ErrorException("Failed to retrieve valid e-mail address from OpenID provider.");
+        
+                 
                  if(isset($openid_country))
                      $openid_country = $_openid_countries[$openid_country];
                  
-                 if(!$openid_email && !$openid_fname && !$openid_lname)
+                 if(isset($openid_email) && isset($openid_fname) && isset($openid_lname))
                      throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
                  
                  $default_course_id = 0;
