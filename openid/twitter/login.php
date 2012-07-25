@@ -56,7 +56,7 @@ try{
         #Requesting authentication tokens.
         $request_token = $twitteroauth->getRequestToken(CALLBACK_URL);
         if(empty($request_token['oauth_token']) ||empty($request_token['oauth_token_secret'])){
-            throw new Exception("Failed to request token from twitter. Check your internet connectivity.",408);
+            throw new Exception("Failed to request token from twitter. Check your internet connectivity.",$twitteroauth->http_code);
         }
 
         if ($twitteroauth->http_code == 200) {
@@ -73,7 +73,7 @@ try{
         } else {
             #Some HTTP Error happened. 
             throw new ErrorException('Twitter authentication failed With HTTP response -'+
-                    $twitteroauth->http_code +'.',404);
+                    $twitteroauth->http_code +'.',$twitteroauth->http_code);
         }
     
         
@@ -89,7 +89,7 @@ try{
             #Let's request the access token. Once the user tells twitter yes and returns we request the access tokens.
             $access_token = $twitteroauth->getAccessToken($_DATA['oauth_verifier']);
             if(empty($access_token))
-                 throw new Exception("Failed to access token from twitter. Check your internet connectivity.",408);
+                 throw new Exception("Failed to access token from twitter. Check your internet connectivity.",$twitteroauth->http_code);
             #Save it in a session var
             $_SESSION['openid_twitter_access_token'] = $access_token;
             
@@ -97,13 +97,13 @@ try{
             $user_info = $twitteroauth->get('account/verify_credentials');
         
             #Check the User-info which is JSON decoded.
-            if($user_info){
-                 echo '<pre>';
+            if($user_info && $twitteroauth->http_code == 200){
+                echo '<pre>';
                 print_r($user_info);
                 echo '</pre><br/>';
             }else{
                 #User denied permission.
-                throw new Exception("Failed to fetch user data. Permission denied.", 403);
+                throw new Exception("Failed to fetch user data. Permission denied.", $twitteroauth->http_code);
             }
             
     }
