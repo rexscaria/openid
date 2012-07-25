@@ -57,7 +57,7 @@ try{
         
             #Can we continue without mail? . No, we can't
             if(empty($openid_email) && !filter_var($openid_email, FILTER_VALIDATE_EMAIL))
-                throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
+                throw ErrorException("Failed to retrieve valid e-mail address from OpenID provider.");
         
             $default_course_id = 0;
             #Check whether user exists in db
