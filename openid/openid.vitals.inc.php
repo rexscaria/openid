@@ -22,7 +22,6 @@ while ($ret_row = mysql_fetch_assoc($resultset)) {
 	$_openid_config[$ret_row['property_name']] = $ret_row['property_value'];
 }
 
-
 $_openid_countries = array(
                 'Afghanistan'=> 'AF',
                 'Albania'=> 'AL',
@@ -275,7 +274,9 @@ function unsetSession($db){
                  unset($_SESSION['openid_twitter_oauth_token']);
                  unset($_SESSION['openid_twitter_oauth_token_secret']);
                  unset($_SESSION['openid_twitter_access_token']);
-
+                 unset($_SESSION['email_request_id']);
+                 unset($_SESSION['email_reply_timestamp']);
+                 unset($_SESSION['email_request_timestamp']);
                  $_SESSION['prefs']['PREF_FORM_FOCUS'] = 1;                
 } 
 
@@ -299,20 +300,27 @@ function getFreeLoginName($db, $fname, $lname, $email, $suggestion) {
      */
    
     preg_match('/[^@]+/', $email, $match);
-    $free_login_name = (isset($suggestion) && !isExistLogin($db, $suggestion))? $suggestion
-        : (!isExistLogin($db, $fname . $lname))? $fname . $lname
-        : (!isExistLogin($db, $lname.$fname)? $lname.$fname 
-        : (!isExistLogin($db,$match[0])? $match[0]
-        : (!isExistLogin($db, $fname)? $fname
-        : (!isExistLogin($db, $lname)? $lname
-        : (!isExistLogin($db, $fname.'_'.$lname)? $fname.'_'.$lname
-        : (!isExistLogin($db, $lname.'_'.$fname)? $lname.'_'.$fname
-        : (!isExistLogin($db, $fname.'.'.$lname)? $fname.'.'.$lname
-        : (!isExistLogin($db, $lname.'.'.$fname)? $lname.'.'.$fname 
-        : (!isExistLogin($db, $fname.'-'.$lname)? $fname.'-'.$lname
-        : (!isExistLogin($db, $lname.'-'.$fname)? $lname.'-'.$fname 
-        : NULL
-            ))))))))));
+    $sugession_array = isset($suggestion)?array($suggestion):array();
+    $login_combinations = array_merge($sugession_array, array($fname . $lname, 
+                                                            $lname.$fname ,
+                                                            $match[0],
+                                                            $fname,
+                                                            $lname,
+                                                            $fname.'_'.$lname,
+                                                            $lname.'_'.$fname,
+                                                            $fname.'.'.$lname,
+                                                            $lname.'.'.$fname,
+                                                            $fname.'-'.$lname,
+                                                            $lname.'-'.$fname));
+    $free_login_name = NULL;
+    
+    foreach ($login_combinations as $login){
+        if(!isExistLogin($db, $login)){ 
+                $free_login_name = $login;
+                break;
+        }
+    }
+    
     if($free_login_name==NULL){
         #Append numbers to the end.
         do{
@@ -369,8 +377,12 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
 	}
 
 
-        #No Email conformation is needed for OpenID login.
-        $status = AT_STATUS_STUDENT;
+        #Email conformation is recommended for twitter.
+        if (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER == 'TWITTER') {
+                $status = AT_STATUS_UNCONFIRMED;
+        } else {
+                $status = AT_STATUS_STUDENT;
+        }
         $now = date('Y-m-d H:i:s');
         $default_private_email = 1;
 
@@ -434,7 +446,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
 
             #Write to session.
             $_SESSION['valid_user'] = true;
-            $_SESSION['member_id']	= $m_id;
+            $_SESSION['member_id'] = $m_id;
             $_SESSION['course_id']  = 0;
             $_SESSION['login'] = $login_name;
             assign_session_prefs(unserialize(stripslashes($_config[pref_defaults])), 1);
@@ -581,6 +593,18 @@ function generateCallBackURL($custom_url) {
     $uri = rtrim(preg_replace('#((?<=\?)|&)openid\.[^&]+#', '', $_SERVER['REQUEST_URI']), '?');
     return $root . $uri;
     
+}
+
+
+if (!function_exists ('filter_var')) {
+  # define the VALIDATE FILTER-constants you would like to use, more info on php.net
+  define ('FILTER_VALIDATE_EMAIL', '/^([A-Za-z0-9\.\_\%\+\-]{1,39})@([a-zA-Z0-9\.\-]{2,34})\.[a-zA-Z]{2,5}$/');
+  define ('FILTER_VALIDATE_BOOLEAN', '/^(1|yes|true|on)$/i');
+ 
+  # the filter_var function
+  function filter_var ($variable, $filter) {
+       return preg_match ($filter, $variable)? $variable : FALSE;
+  }
 }
 
 ?>
