@@ -126,21 +126,21 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  $openid_country  = isset($attr['contact/country/home'])?$attr['contact/country/home']:NULL;
                  
                  #Can we continue without mail? . No, we can't
-                if(empty($openid_email) && !filter_var($openid_email, FILTER_VALIDATE_EMAIL))
-                    throw ErrorException("Failed to retrieve valid e-mail address from OpenID provider.");
+                if(!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
+                    throw new Exception("Failed to retrieve valid e-mail address from OpenID provider.");
         
                  
                  if(isset($openid_country))
                      $openid_country = $_openid_countries[$openid_country];
                  
                  if(isset($openid_email) && isset($openid_fname) && isset($openid_lname))
-                     throw ErrorException("Failed to retrieve required attributes from OpenID provider.");
+                     throw new Exception("Failed to retrieve required attributes from OpenID provider.");
                  
                  $default_course_id = 0;
                  #Check whether user exists in db
                  $result = mysql_query("SELECT member_id, login, status, preferences, language, last_login FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
                  if(!$result){
-                     throw ErrorException('Invalid MySQL query : '. mysql_error(),  mysql_errno());
+                     throw new Exception('Invalid MySQL query : '. mysql_error(),  mysql_errno());
                  }
                  
                  if(mysql_num_rows($result)==0){
