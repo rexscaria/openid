@@ -114,3 +114,52 @@ a#openid_google          { background-position:0px -258px; }
 a#openid_google:hover    { background-position:0px -301px; }
 a#openid_google:active   { background-position:0px -344px; }
 
+input[type=text] {
+    outline:none;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border:1px solid rgba(0,0,0, 0.2);
+    background: url(images/twitter_textbox_bg.png) center center no-repeat; 
+}
+
+input[type=text]:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1); 
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    border:1px solid rgba(0,0,255, 0.8); 
+    background: none;
+}
+
+input[type="submit"] {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    color: #443333;
+    padding: 5px 25px 5px 25px;
+    border: 1px solid #999;
+ 
+    text-shadow: 0px 1px 1px #CCC;
+    text-decoration: none;
+ 
+    -moz-box-shadow: 0 1px 3px #111;
+    -webkit-box-shadow: 0 1px 3px #111;
+    box-shadow: 0 1px 3px #111;
+ 
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+ 
+    background: #696969;
+    background: -moz-linear-gradient(top, #d1d1d1 10%, #7b7b7b 60%, #696969 80%, #696969 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(#d1d1d1), to(#7b7b7b), color-stop(0.4, #d1d1d1), color-stop(0.8, #7b7b7b), color-stop(.9, #696969), color-stop(0.9, #696969));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#7b7b7b', GradientType=0 );
+ 
+    cursor: pointer;
+}
+
+input[type=submit]:hover{
+    color: #000;
+}
