@@ -6,7 +6,7 @@ CREATE TABLE `openid` (
    `openid_provider_account_name` varchar(50) NOT NULL default '',
    `openid_url` varchar(200) NOT NULL default '',
    PRIMARY KEY ( `openid_id` )
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 #Table for OpenID settings.
@@ -24,7 +24,16 @@ CREATE TABLE `openid_oauth_request_token` (
    `openid_request_token` varchar(50) NOT NULL default '',
    `openid_login_time` TIMESTAMP NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
    PRIMARY KEY ( `member_id`,`openid_provider_name` )
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+#Table for storing twitter id and email id.
+CREATE TABLE `openid_twitter_credentials` (
+   `twitter_id` varchar(20) NOT NULL,
+   `member_id` mediumint(8) unsigned NOT NULL ,
+   PRIMARY KEY ( `twitter_id`,`member_id` ) ,
+   UNIQUE (`member_id`)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 #Google settings
@@ -70,4 +79,5 @@ INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_TWITTER_KEY_F
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBACK_OPENID_SETTINGS_SAVE_SUCCESS','Your OpenID settings are successfully saved.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_OPENID_SETTINGS_SAVE_FAILED','Failed to save some OpenID settings. Check you settings.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_FACEBOOK_EXCEPTION_OCCURED','Facebook exception received. <br/><br/>Type: %s<br/>Error Result: %s ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_FEEDBACK_OPENID_REG_THANKS_CONFIRM','Thank-you for registering. Please follow the instructions in the email we sent you on how to confirm your account. You will need to confirm your account before you can login.',NOW(),'');
 
