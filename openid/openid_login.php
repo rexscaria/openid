@@ -18,8 +18,6 @@ define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 
 require ('openid.vitals.inc.php');
-#Unset the session first.
-unsetSession($db);
 
 $_custom_css = $_base_path . 'mods/openid/module.css'; // use a custom stylesheet
 require (AT_INCLUDE_PATH.'header.inc.php');
@@ -36,7 +34,26 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 Contact the admin to disable this functionality at <a href="admin/config_edit.php">System Preferences</a>.
             </p>
         <?php
-            }else{
+            }else if(isset($_GET['twitter_email_request']) && 
+                    isset ($_SESSION['email_request_id']) &&
+                    isset ($_SESSION['email_request_timestamp']) &&
+                    $_SESSION['email_request_id'] == $_GET['request'] &&
+                    $_SESSION['email_request_timestamp'] == $_GET['stamp'] &&
+                    $_GET['twitter_email_request'] == 'true'){
+                
+                unset($_SESSION['email_request_timestamp']);
+                $_SESSION['email_reply_timestamp'] = time();
+        ?>    
+               <form method="post" id="twitter_email_request" action="mods/openid/twitter/login.php">
+                <input type="text" style="width: 350px; height: 40px; font-size: 20px;" name="twitter_email" />
+                <input type="text" hidden name="request" value="<?php  echo $_SESSION['email_request_id'] ?>" />
+                <input type="text" hidden name="reply" value="<?php  echo $_SESSION['email_reply_timestamp'] ?>" />
+                <input type="submit" value="submit" name="submit" />
+               </form>
+                
+        <?php    } else{
+            #Unset the session.
+            unsetSession($db);
         ?>
 	<div id="openid_login-btns-wrapper">
 		<fieldset>
