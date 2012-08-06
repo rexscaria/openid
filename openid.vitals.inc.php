@@ -362,6 +362,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
     global $_config;
     global $msg;
     global $db;
+    global $_openid_config;
     
         #Is registration allowed??
         if($_config['allow_registration'] != 1){
@@ -378,7 +379,8 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
 
 
         #Email conformation is recommended for twitter.
-        if (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER == 'TWITTER') {
+        if ((isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' ) ||
+                (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER == 'TWITTER')) {
                 $status = AT_STATUS_UNCONFIRMED;
         } else {
                 $status = AT_STATUS_STUDENT;
