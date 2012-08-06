@@ -133,7 +133,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  if(isset($openid_country))
                      $openid_country = $_openid_countries[$openid_country];
                  
-                 if(isset($openid_email) && isset($openid_fname) && isset($openid_lname))
+                 if(!isset($openid_email) || !isset($openid_fname) || !isset($openid_lname))
                      throw new Exception("Failed to retrieve required attributes from OpenID provider.");
                  
                  $default_course_id = 0;
