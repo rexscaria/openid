@@ -141,6 +141,11 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dd><input type="checkbox" name="twitter_enable" id="twitter_enable" value="true" <?php echo ($_openid_config['OPENID_TWITTER_ENABLED']=='true')? 'checked' : 'unchecked'?> size="1"/></dd>
             </dl>
             <dl>
+              <dt>Enable twitter email confirmation :
+              </dt>
+              <dd><input type="checkbox" name="twitter_email_confirmation" id="twitter_email_confirmation" value="true" <?php echo ($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']=='true')? 'checked' : 'unchecked'?> size="1"/></dd>
+            </dl><i>(Recommended)</i>
+            <dl>
               <dt>
                 Twitter app Consumer key :
               </dt>
