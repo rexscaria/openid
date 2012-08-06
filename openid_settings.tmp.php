@@ -12,6 +12,9 @@
 /* as published by the Free Software Foundation.		       */
 /* * ******************************************************************** */
 // $Id: openid_settings.tmp.php UTF-8 10055 Jul 2, 2012 11:20:09 PM Author:scari  $
+
+if (!defined('AT_INCLUDE_PATH')) { exit; } 
+
 global $_openid_config;
 require (AT_INCLUDE_PATH.'header.inc.php'); 
 ?>
