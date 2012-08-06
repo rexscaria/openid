@@ -181,10 +181,10 @@ try {
 
 
         #Can we continue with mail? . No, we can't, if it is invalid.
-        if (empty($openid_email) || !filter_var($openid_email, FILTER_VALIDATE_EMAIL))
+        if (!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
             throw new Exception("Invalid e-mail address. Twitter login failed", 401);
 
-        if (empty($openid_email) || empty($openid_fname) || empty($openid_lname) || empty($openid_twitter_id)) {
+        if (empty($openid_email) || empty($openid_fname) || empty($openid_twitter_id)) {
             throw new Exception("Failed to get valid parameters for login. Twitter login failed", 401);
         }
         
