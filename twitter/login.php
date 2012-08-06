@@ -210,7 +210,10 @@ try {
         
         #############################
         $now = date('Y-m-d H:i:s');
-        if (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION) {
+         if (
+            (isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' ) 
+            ||
+            (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION )) {
                 $msg->addFeedback('OPENID_REG_THANKS_CONFIRM');
 
                 $code = substr(md5($openid_email . $now . $m_id), 0, 10);
