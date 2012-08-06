@@ -99,6 +99,13 @@ if(isset($_POST['submit']) && $_POST['submit']=='submit'){
     if(isset($_POST['twitter_enable']) && $_POST['twitter_enable']=="true"){
         $params['OPENID_TWITTER_ENABLED'] = 'true';
         
+        #Check for email-validatiion.
+        if(isset($_POST['twitter_email_confirmation']) && $_POST['twitter_email_confirmation']== 'true'){
+            $params['OPENID_TWITTER_CONFIRM_EMAIL_ID'] = 'true';
+        }else{
+            $params['OPENID_TWITTER_CONFIRM_EMAIL_ID'] = 'false';
+        }
+        
         #Set Twitter Oauth key
         if(isset($_POST['twitter_consumer_key']) && $_POST['twitter_consumer_key'] != ''){
             $params['OPENID_TWITTER_APP_CONSUMER_KEY'] = $_POST['twitter_consumer_key'];
