@@ -1,14 +1,5 @@
 # sql file for openid module
 
-CREATE TABLE `openid` (
-   `openid_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-   `openid_provider_name` varchar(30) NOT NULL default '',
-   `openid_provider_account_name` varchar(50) NOT NULL default '',
-   `openid_url` varchar(200) NOT NULL default '',
-   PRIMARY KEY ( `openid_id` )
-)ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 #Table for OpenID settings.
 CREATE TABLE `openid_settings` (
   `property_name` varchar(40) NOT NULL ,
