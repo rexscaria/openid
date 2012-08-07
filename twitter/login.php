@@ -211,7 +211,7 @@ try {
         #############################
         $now = date('Y-m-d H:i:s');
          if (
-            (isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' ) 
+            (isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' && OPENID_PROVIDER=='TWITTER' ) 
             ||
             (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION )) {
                 $msg->addFeedback('OPENID_REG_THANKS_CONFIRM');
