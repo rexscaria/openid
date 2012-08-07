@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
-<module version="0.1"> 
+<module version="1.0 alpha"> 
     <name lang="en">OpenID</name> 
-    <description lang="en">The module provides OpenID feature to the ATutor. Which enables users to register and log in to the ATutor without much pain. They can manage their content without keeping a separate username password combo.</description> 
+    <description lang="en">The module enables OpenID featurein to the ATutor. Which enables users to register and log in to the ATutor without much pain.
+    They can manage their content without keeping a separate username password combination.
+    Enabling this module helps users to make use of Google, FaceBook and Twitter credentials for loging into the ATutor. The module is 100% configurable.
+    The module allows admins to controll the way it should behave. For details refer the README file.
+    Check docs/ for documentation and help.
+    
+    </description> 
     <maintainers>
         <maintainer> 
             <name>Arun Scaria</name> 
             <email>arunscaria91@gmail.com</email> 
         </maintainer>
     </maintainers> 
-    <url>http://www.google-melange.com/gsoc/project/google/gsoc2012/arunscaria91/52003</url> 
+    <url>http://atutoropeniddev.wordpress.com</url> 
     <license>GPL</license> 
 	<release> 
         <version>1.0 alpha</version> 
         <date>2012-06-11</date> 
-        <state>On development</state> 
-        <notes>Use this for testing only.</notes> 
+        <state>Devel</state> 
+        <notes>Please report bugs to the author. :)</notes> 
     </release> 
 </module>
