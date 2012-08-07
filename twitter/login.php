@@ -230,7 +230,7 @@ try {
 
                 $mail->Send();
                 unsetSession($db);
-                header('Location: ' . AT_BASE_HREF . 'login.php');
+                header('Location: ' . AT_BASE_HREF . 'mods/openid/openid_login.php');
                 exit;
 
 	}else{
