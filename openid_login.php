@@ -30,8 +30,11 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             #Disable openid if master list is enabled.
             if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
         ?> 
-            <p id="openid_content_text" style="margin-top: 50px; width: 90%;">The masterlist is enabled. OpenID module can't work properly with masterlist. 
-                Contact the admin to disable this functionality at <a href="admin/config_edit.php">System Preferences</a>.
+            <p id="openid_content_text" style="margin-top: 50px; width: 90%;">
+                <?php echo _AT('openid_masterlist_enabled'); ?>
+                <a href="admin/config_edit.php">
+                    <?php echo _AT('system_preferences'); ?>
+                </a>.
             </p>
         <?php
             }else if(isset($_GET['twitter_email_request']) && 
@@ -45,10 +48,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 $_SESSION['email_reply_timestamp'] = time();
         ?>    
                <form method="post" id="twitter_email_request" action="mods/openid/twitter/login.php">
-                <input type="text" style="width: 350px; height: 40px; font-size: 20px;" name="twitter_email" />
+                <input type="text" style="width: 350px; height: 40px; font-size: 20px;" name="twitter_email" id="twitter_email" />
                 <input type="text" hidden name="request" value="<?php  echo $_SESSION['email_request_id'] ?>" />
                 <input type="text" hidden name="reply" value="<?php  echo $_SESSION['email_reply_timestamp'] ?>" />
-                <input type="submit" value="submit" name="submit" />
+                <input type="submit" value="<?php echo _AT('submit');?>" name="submit" />
                </form>
                 
         <?php    } else{
@@ -57,21 +60,32 @@ require (AT_INCLUDE_PATH.'header.inc.php');
         ?>
 	<div id="openid_login-btns-wrapper">
 		<fieldset>
-			<span style="padding-left: 20px;">Click to login</span>
+			<span style="padding-left: 20px;"><?php echo _AT('openid_click_to_login');?></span>
 		</fieldset>
 		   	
 			<?php 
                               if($_openid_config['OPENID_GOOGLE_ENABLED'] == 'true')  
-                                    echo '<li><a href="mods/openid/google/login.php?login=true&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">Login with Google</a></li>'; 
+                                    echo '<li><a href="mods/openid/google/login.php?login=true&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">'. _AT('openid_login_with_google'). '</a></li>'; 
                               if($_openid_config['OPENID_FB_ENABLED'] == 'true') 
-                                    echo '<li><a href="mods/openid/facebook/login.php" class="openid_one-click-login openid_social_label" id="openid_facebook">Login with Facebook</a></li>';
+                                    echo '<li><a href="mods/openid/facebook/login.php" class="openid_one-click-login openid_social_label" id="openid_facebook">'. _AT('openid_login_with_fb'). '</a></li>';
                               if($_openid_config['OPENID_TWITTER_ENABLED'] == 'true') 
-                                    echo '<li><a href="mods/openid/twitter/login.php?login=true&openid_provider=twitter" class="openid_one-click-login openid_social_label" id="openid_twitter">Login with Twitter</a></li>'; 
+                                    echo '<li><a href="mods/openid/twitter/login.php?login=true&openid_provider=twitter" class="openid_one-click-login openid_social_label" id="openid_twitter">'. _AT('openid_login_with_twitter'). '</a></li>'; 
                         ?>
 		  
 	</div>
         <?php } ?>
 </div>
 </div>
+
+<script lang="text/javascript" >
+    jQuery('#twitter_email').focusout(
+            function(){
+                if(jQuery('#twitter_email').val() !="")
+                    jQuery('#twitter_email').css('background-image', 'none');
+                else
+                    jQuery('#twitter_email').css('background-image', ' url(images/twitter_textbox_bg.png)');
+            });
+
+</script>
 
 <?php require (AT_INCLUDE_PATH.'footer.inc.php'); ?>                                                                                                                                                                                                                                  
