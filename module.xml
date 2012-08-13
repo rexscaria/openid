@@ -4,7 +4,7 @@
     <description lang="en">   The module enables OpenID feature into the ATutor.  Which enables users to register and log in to the ATutor without much pain.
     They can manage their content without keeping a separate username password combination. Enabling this module helps users to make use of Google, FaceBook
     and Twitter credentials for loging into the ATutor. The module is 100% configurable.  The module allows admins to controll the way it should behave. For
-    details refer the README file. Check docs/ for documentation and help.
+    details refer the README file or docs.
     
     </description> 
     <maintainers>
