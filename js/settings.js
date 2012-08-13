@@ -168,5 +168,13 @@ jQuery(document).ready(function () {
     checkbox_google_use_oauth();
     checkbox_twitter_enable ();
     checkbox_fb_enable ();
+    
+    jQuery("a[rel]").overlay({
+        mask: 'black',
+        onBeforeLoad: function() {
+            var wrap = this.getOverlay().find(".contentWrap");
+            wrap.load(this.getTrigger().attr("href"));
+        }
+    });
   });
 
