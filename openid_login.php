@@ -48,7 +48,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 $_SESSION['email_reply_timestamp'] = time();
         ?>    
                <form method="post" id="twitter_email_request" action="mods/openid/twitter/login.php">
-                <input type="text" style="width: 350px; height: 40px; font-size: 20px;" name="twitter_email" id="twitter_email" />
+                <input type="text" class ="twitter_email_box_empty" style="width: 350px; height: 40px; font-size: 20px;" name="twitter_email" id="twitter_email" />
                 <input type="text" hidden name="request" value="<?php  echo $_SESSION['email_request_id'] ?>" />
                 <input type="text" hidden name="reply" value="<?php  echo $_SESSION['email_reply_timestamp'] ?>" />
                 <input type="submit" value="<?php echo _AT('submit');?>" name="submit" />
@@ -81,9 +81,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     jQuery('#twitter_email').focusout(
             function(){
                 if(jQuery('#twitter_email').val() !="")
-                    jQuery('#twitter_email').css('background-image', 'none');
+                    jQuery('#twitter_email').removeClass('twitter_email_box_empty');
                 else
-                    jQuery('#twitter_email').css('background-image', ' url(images/twitter_textbox_bg.png)');
+                    jQuery('#twitter_email').addClass('twitter_email_box_empty');
             });
 
 </script>
