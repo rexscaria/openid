@@ -56,13 +56,24 @@ INSERT INTO `openid_settings` VALUES ('OPENID_TWITTER_CONFIRM_EMAIL_ID','true');
 #Language texts.
 INSERT INTO `language_text` VALUES ('en', '_module','openid','OpenID',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','openid_text','ATutor module to enable users to register and log in to the ATutor account without much pain',NOW(),'');
+
 INSERT INTO `language_text` VALUES ('en', '_template','openid_login','OpenID Login',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','OpenID Settings',NOW(),'openid');
 
+#OpenID Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_email_not_valid','Failed to retrieve valid e-mail address from OpenID provider.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_details_not_valid','Failed to retrieve required attributes from OpenID provider.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_mysql_error','Invalid MySQL query : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_permission_denied','Permission denied!',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_try_again','Refresh the page and try again.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_masterlist_enabled','The masterlist is enabled. OpenID module can\'t work properly with masterlist. Contact the admin to disable this functionality at ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_click_to_login','Click to login',NOW(),'openid');
+
+#FB Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_data_failed','Failed to Facebook fetch profile information.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_fb','Login with Facebook',NOW(),'openid');
+
+#Twitter Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_request_token_failed','Failed to request token from twitter. Check your internet connectivity.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_auth_failed','Twitter authentication failed With HTTP response -',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_access_token_failed','Failed to access token from twitter.',NOW(),'openid');
@@ -70,29 +81,47 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_user_denie
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_cached_access_token_failed','Failed to fetch cached access token.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_invalid_email','Invalid e-mail address.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_login_failed','Twitter login failed.',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_permission_denied','Permission denied!',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_invalid_access_token','Access token is invalid',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_email_exists','Email exists. Registration failed!!',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_try_again','Refresh the page and try again.',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_masterlist_enabled','The masterlist is enabled. OpenID module can\'t work properly with masterlist. Contact the admin to disable this functionality at ',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_google','Login with Google',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_fb','Login with Facebook',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_twitter','Login with Twitter',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_click_to_login','Click to login',NOW(),'openid');
+
+#Google Errors
+INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_google','Login with Google',NOW(),'openid');
 
 
+#OpenID Settings
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','OpenID Settings',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_sub_heading','Tune your OpenID.',NOW(),'openid');
 
-INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_sub_heading','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_google','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_sub_heading','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_use_pape','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_max_auth_age','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Click to login',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Click to login',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_google','Google OpenID Settings',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_sub_heading','Tune your Google OpenID.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable','Enable Google OpenID : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_mode','Google OpenID mode : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_use_pape','Use PAPE : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_max_auth_age','Enable UI Extension : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_extension','Enable UI Extension : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_mode','UI mode : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_icon','Enable UI Icon : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_query_country','Query Country details : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_query_lang','Query Language details : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_use_oauth','Use OAuth(Work with Google Apps module) : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_oauth_key','OAuth consumer key : ',NOW(),'openid');
+
+
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_twitter','Twitter OpenID Settings',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_twitter_sub_heading','Tune your Twitter OpenID.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_enable','Enable twitter : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_mail_confirmation','Enable twitter email confirmation : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_recommended','(Recommended)',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_app_key','Twitter app Consumer key : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_app_secret_key','Twitter app Consumer secret key : ',NOW(),'openid');
+
+
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_fb','Facebook OpenID Settings',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_fb_sub_heading','Tune your Facebook OpenID.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_enable','Enable Facebook : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_app_key','Facebook app Consumer key : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_app_secret_key','Facebook app Consumer secret key : ',NOW(),'openid');
 
 
 #Error and warnings.
