@@ -1,16 +1,15 @@
 div.openid_input-form {
-width: 95%;
-margin-left: auto;
-margin-right: auto;
-border: 1px #CCCCCC solid;
-margin-bottom: 10px;
-line-height: 150%;
-background-color: #F8F8F8;
-border-radius: .5em;
--moz-border-radius: .5em .5em .5em .5em;
-padding: .2em;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px #CCCCCC solid;
+    margin-bottom: 10px;
+    line-height: 150%;
+    background-color: #F8F8F8;
+    border-radius: .5em;
+    -moz-border-radius: .5em .5em .5em .5em;
+    padding: .2em;
 }
-
 
 #opnid_wraper{
     background: #F8F8F8 url('images/openid_bg.png') no-repeat top left;
@@ -31,7 +30,6 @@ p#openid_content_text{
     color: #444;
 }
 
-
 #openid_vertical_divider {
     width: 40%;
     padding-left: 65px;
@@ -51,14 +49,12 @@ p#openid_content_text{
     width: 12px;
     height: 23px;
     left: -1px;
-    top: 35px; /* adjust pointer */
+    top: 35px; 
 }
 
 #openid_login-btns-wrapper{
     margin-left: 70px;
-    
 }
-
 
 fieldset{
     border: 0;
@@ -66,25 +62,23 @@ fieldset{
     font-size: 19.5px;
 }
 
-
-
 a.openid_one-click-login {
-  display:block;
-  width:200px;
-  font-family:arial;
-  height:30px;
-  padding:0px;
-  padding-top:14px;
-  color:#ffffff;
-  font-size:16px;
-  font-weight:bold;
-  margin:auto;
-  background:url('images/sprite_login_btns.png') no-repeat;
-  margin:10px;
-  margin-left:20px;
-  margin-bottom:20px;
-  text-shadow:0px 1px 3px #555555;
-  filter:dropshadow(color=#555555,offx=1,offy=1);
+    display:block;
+    width:200px;
+    font-family:arial;
+    height:30px;
+    padding:0px;
+    padding-top:14px;
+    color:#ffffff;
+    font-size:16px;
+    font-weight:bold;
+    margin:auto;
+    background:url('images/sprite_login_btns.png') no-repeat;
+    margin:10px;
+    margin-left:20px;
+    margin-bottom:20px;
+    text-shadow:0px 1px 3px #555555;
+    filter:dropshadow(color=#555555,offx=1,offy=1);
 }
 
 #openid_login-btns-wrapper{
@@ -93,13 +87,13 @@ a.openid_one-click-login {
 }
 
 a.openid_social_label{
-  width: 251px;
-  color:#ffffff;
-  font-size:16px;
-  font-weight:bold;
-  text-align: left;
-  padding-left: 50px;
-  text-shadow:0px 1px 3px whitesmoke;
+    width: 251px;
+    color:#ffffff;
+    font-size:16px;
+    font-weight:bold;
+    text-align: left;
+    padding-left: 50px;
+    text-shadow:0px 1px 3px whitesmoke;
 }
 
 a#openid_facebook        { background-position:0px 0px;   }
@@ -123,6 +117,10 @@ input[type=text] {
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border:1px solid rgba(0,0,0, 0.2);
+    
+}
+
+.twitter_email_box_empty{
     background: url(images/twitter_textbox_bg.png) center center no-repeat; 
 }
 
