@@ -127,20 +127,20 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  
                  #Can we continue without mail? . No, we can't
                 if(!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
-                    throw new Exception("Failed to retrieve valid e-mail address from OpenID provider.");
+                    throw new Exception(_AT('openid_email_not_valid'));
         
                  
                  if(isset($openid_country))
                      $openid_country = $_openid_countries[$openid_country];
                  
                  if(!isset($openid_email) || !isset($openid_fname) || !isset($openid_lname))
-                     throw new Exception("Failed to retrieve required attributes from OpenID provider.");
+                     throw new Exception(_AT('openid_details_not_valid'));
                  
                  $default_course_id = 0;
                  #Check whether user exists in db
                  $result = mysql_query("SELECT member_id, login, status, preferences, language, last_login FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
                  if(!$result){
-                     throw new Exception('Invalid MySQL query : '. mysql_error(),  mysql_errno());
+                     throw new Exception(_AT('openid_mysql_error'). mysql_error(),  mysql_errno());
                  }
                  
                  if(mysql_num_rows($result)==0){
