@@ -18,7 +18,7 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 admin_authenticate(AT_ADMIN_PRIV_OPENID);
 $_custom_css = $_base_path . 'mods/openid/css/settings.css';
 $_custom_head = '<script type="text/javascript" src="mods/openid/js/settings.js" ></script>
-                ';
+                <script type="text/javascript" src="mods/openid/js/jquery.tools.min.js" ></script>';
 
 require ('openid.vitals.inc.php');
 
