@@ -64,6 +64,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                   </option>
                 </select>
               </dd>
+              <a href="mods/openid/docs/ajax/google_mode.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+              </a>
             </dl>
             <dl>
               <dt>Use PAPE :
@@ -74,6 +77,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <span class="sub-item"><dt>Max authentication age(Seconds) :
                 </dt>
                 <dd><input type="text" name="google_max_auth_age" id="google_max_auth_age" size="5"  value="<?php echo $_openid_config['OPENID_GOOGLE_MAX_AUTH_AGE'] ?>"/></dd></span>
+                <a href="mods/openid/docs/ajax/google_pape.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+                </a>
             </dl>
             <dl>
               <dt>Enable UI Extension :
@@ -95,6 +101,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                   </select>
                 </dd>
               </span>
+                <a href="mods/openid/docs/ajax/google_ui_mode.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+                </a>
             </dl>
             <dl>
               <span class="sub-item"><dt>Enable UI Icon :
@@ -115,11 +124,17 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>Use OAuth(Work with Google Apps module) :
               </dt>
               <dd><input type="checkbox" name="google_use_oauth" id="google_use_oauth"  value="true" <?php echo ($_openid_config['OPENID_GOOGLE_REQUEST_OAUTH']=='true')? 'checked' : 'unchecked'?> /></dd>
+              <a href="mods/openid/docs/ajax/google_app_module.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+              </a>
             </dl>
             <dl>
               <span class="sub-item"><dt>OAuth consumer key :
                 </dt>
                 <dd><input type="text" name="google_oauth_key" id="google_oauth_key" value="<?php echo $_openid_config['OPENID_GOOGLE_OAUTH_CONSUMER_KEY'] ?>"/></dd></span>
+                <a href="mods/openid/docs/ajax/google_keys.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+                </a>
             </dl>
             <br>
           </div>
@@ -139,6 +154,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>Enable twitter :
               </dt>
               <dd><input type="checkbox" name="twitter_enable" id="twitter_enable" value="true" <?php echo ($_openid_config['OPENID_TWITTER_ENABLED']=='true')? 'checked' : 'unchecked'?> size="1"/></dd>
+              <a href="mods/openid/docs/ajax/twitter_keys.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+              </a>
             </dl>
             <dl>
               <dt>Enable twitter email confirmation :
@@ -174,6 +192,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dt>Enable Facebook :
               </dt>
               <dd><input type="checkbox" name="fb_enable" id="fb_enable" value="true" <?php echo ($_openid_config['OPENID_FB_ENABLED']=='true')? 'checked' : 'unchecked'?>  size="1"/></dd>
+              <a href="mods/openid/docs/ajax/fb_keys.html" rel="#overlay">
+                  <img class="help-img"  style="margin: 0;" src="mods/openid/images/help.png"> 
+              </a>
             </dl>
             <dl>
               <dt>
@@ -200,5 +221,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
   </form>
 </div>
 
+<!-- overlayed element -->
+<div class="apple_overlay" id="overlay">
+  <!-- the external content is loaded inside this tag -->
+  <div class="contentWrap"></div>
+</div>
 
 <?php require (AT_INCLUDE_PATH.'footer.inc.php');  ?>
