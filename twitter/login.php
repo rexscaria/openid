@@ -56,7 +56,7 @@ try {
         #Requesting authentication tokens.
         $request_token = $twitteroauth->getRequestToken(CALLBACK_URL);
         if (empty($request_token['oauth_token']) || empty($request_token['oauth_token_secret'])) {
-            throw new Exception("Failed to request token from twitter. Check your internet connectivity.", $twitteroauth->http_code);
+            throw new Exception(_AT('openid_twitter_request_token_failed'), $twitteroauth->http_code);
         }
 
         if ($twitteroauth->http_code == 200) {
@@ -72,7 +72,7 @@ try {
             exit;
         } else {
             #Some HTTP Error happened. 
-            throw new ErrorException('Twitter authentication failed With HTTP response -' +
+            throw new Exception(_AT('openid_twitter_auth_failed') +
                     $twitteroauth->http_code + '.', $twitteroauth->http_code);
         }
     } else if (!empty($_GET['oauth_verifier']) &&
@@ -90,7 +90,7 @@ try {
 
         #Check the User-info which is JSON decoded.
         if (empty($access_token) || $twitteroauth->http_code != 200)
-            throw new Exception("Failed to access token from twitter. Permission denied!", $twitteroauth->http_code);
+            throw new Exception(_AT('openid_twitter_access_token_failed').' '. _AT('openid_permission_denied'), $twitteroauth->http_code);
 
         #Save it in a session var
         $_SESSION['openid_twitter_access_token'] = $access_token;
@@ -109,7 +109,7 @@ try {
                     "WHERE twitter_id='$user_info->id_str'";
             $result = mysql_query($sql, $db);
             if (!$result) {
-                    throw new ErrorException('Invalid MySQL query : ' . mysql_error(), mysql_errno());
+                    throw new Exception(_AT('openid_mysql_error'). mysql_error(), mysql_errno());
             }
             if (mysql_num_rows($result) != 0) {
                 $default_course_id = 0;
@@ -130,7 +130,7 @@ try {
             }
         } else {
             #User denied permission.
-            throw new Exception("Failed to fetch user data. Permission denied.", $twitteroauth->http_code);
+            throw new Exception(_AT('openid_twitter_user_denied').' '. _AT('openid_permission_denied'), $twitteroauth->http_code);
         }
     } else if (isset($_POST['submit']) &&
             isset($_POST['twitter_email']) && 
@@ -143,7 +143,7 @@ try {
       
         #Can we continue without mail? . No, we can't
         if(!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
-            throw new ErrorException("Failed to retrieve valid e-mail address from OpenID provider.");
+            throw new Exception(_AT('openid_email_not_valid'));
         
         #Hey it's time to login.
         if (!isset($_SESSION['openid_twitter_access_token']))
@@ -157,7 +157,8 @@ try {
                         $access_token['oauth_token_secret']);
 
         if (empty($access_token))
-            throw new Exception("Failed to fetch cached access token. Permission denied!", $twitteroauth->http_code);
+            throw new Exception(_AT('openid_twitter_cached_access_token_failed').' '. _AT('openid_permission_denied'), 
+                                $twitteroauth->http_code);
 
 
         #It's time to verify credentials and to get user data. Let's get the user's info
@@ -167,7 +168,7 @@ try {
                 $twitteroauth->http_code != 200 &&
                 $user_info->screen_name == $access_token['screen_name'] &&
                 $user_info->id_str == $access_token['id'])
-            throw new Exception("Access token is invalid");
+            throw new Exception(_AT('openid_twitter_invalid_access_token'));
 
         $name_array = split(' ', $user_info->name,2);
         preg_match_all('/[^, ]+$/',  $user_info->location, $location_arr, PREG_PATTERN_ORDER);
@@ -182,10 +183,10 @@ try {
 
         #Can we continue with mail? . No, we can't, if it is invalid.
         if (!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
-            throw new Exception("Invalid e-mail address. Twitter login failed", 401);
+            throw new Exception(_AT('openid_twitter_invalid_email'). _AT('openid_twitter_login_failed'), 401);
 
         if (empty($openid_email) || empty($openid_fname) || empty($openid_twitter_id)) {
-            throw new Exception("Failed to get valid parameters for login. Twitter login failed", 401);
+            throw new Exception(_AT('openid_details_not_valid') . _AT('openid_twitter_login_failed'), 401);
         }
         
         #Is the mail present in db??
@@ -193,7 +194,7 @@ try {
         $result = mysql_query($sql);
         if(mysql_num_rows($result) !=0){
             #Email exists. Exit now.
-            throw new Exception("Email exists. Registration failed!!");
+            throw new Exception(_AT('openid_twitter_email_exists'));
         }
         
         $default_course_id = 0;
@@ -242,7 +243,7 @@ try {
     } else {
         #Rarely used path. Don't know what to do!!!!
         #Just throw an exception.
-        throw new Exception("Twitter login failed. Refresh the page and try again.", 404);
+        throw new Exception(_AT('openid_twitter_login_failed'). ' '. _AT('openid_try_again'), 404);
     }
 } catch (Exception $e) {
 
