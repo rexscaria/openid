@@ -7,16 +7,16 @@ OpenID-ATutor
  OpenID module for ATutor
  ------------------------
 
-    The module provides OpenID feature to the ATutor.  Which enables users to register and  log 
-  in to the ATutor without much pain. They can manage their content without keeping a separate 
-  username password combination. This module can work with OAuth based Google app module to import 
-  Google services to the ATutor. The OpenID module for ATutor is an anytime pluggable module 
-  that can help the Atutor users to login from their Google account rather than registering a
-  new account.
+    The module provides OpenID feature to the ATutor.  Which enables
+  users to register and  log in to the ATutor without much pain. They
+  can manage their content without keeping a separate username password
+  combination. This module can work with OAuth based Google app module
+  to import Google services to the ATutor. The OpenID module for ATutor
+  is an anytime pluggable module that can help the Atutor users to login
+  from their Google account rather than registering a new account.
 
- 
-    The OpenID module supports Google, Facebook and Twitter based authentication. The administartor
-  can configure these three OpenID services. 
+    The OpenID module supports Google, Facebook and Twitter based login. 
+  The administartor can configure these three OpenID services. 
 
   INDEX
   -----
