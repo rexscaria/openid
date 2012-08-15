@@ -84,6 +84,8 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_login_fail
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_invalid_access_token','Access token is invalid',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_email_exists','Email exists. Registration failed!!',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_twitter','Login with Twitter',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_twitter_email_prompt','Enter your Twitter email address.',NOW(),'openid');
+
 
 #Google Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_google','Login with Google',NOW(),'openid');
