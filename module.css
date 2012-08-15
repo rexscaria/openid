@@ -10,26 +10,22 @@ div.openid_input-form {
     -moz-border-radius: .5em .5em .5em .5em;
     padding: .2em;
 }
-
 #opnid_wraper{
     background: #F8F8F8 url('images/openid_bg.png') no-repeat top left;
     background-position-x: 10%;
     background-position-y: -80%;   
     height: 300px;
-}
-              
+}             
 p#openid_text{
     margin-left: 40px;
     margin-right: 40px;
     font-size: 1.3em;
 }
-
 p#openid_content_text{
     font-family: times, Times New Roman, times-roman, georgia, serif;
     font-size: 20px;
     color: #444;
 }
-
 #openid_vertical_divider {
     width: 40%;
     padding-left: 65px;
@@ -42,7 +38,6 @@ p#openid_content_text{
     left: 50%;
     margin-top: 30px;
 }
-
 #openid_indicator_arrow::before {
     content: url('images/indicator_right.png');
     position: absolute;
@@ -51,17 +46,14 @@ p#openid_content_text{
     left: -1px;
     top: 35px; 
 }
-
 #openid_login-btns-wrapper{
     margin-left: 70px;
 }
-
 fieldset{
     border: 0;
     color: #757575;
     font-size: 19.5px;
 }
-
 a.openid_one-click-login {
     display:block;
     width:200px;
@@ -80,12 +72,10 @@ a.openid_one-click-login {
     text-shadow:0px 1px 3px #555555;
     filter:dropshadow(color=#555555,offx=1,offy=1);
 }
-
 #openid_login-btns-wrapper{
     list-style-type: none;
     margin-left: 40px;
 }
-
 a.openid_social_label{
     width: 251px;
     color:#ffffff;
@@ -95,7 +85,6 @@ a.openid_social_label{
     padding-left: 50px;
     text-shadow:0px 1px 3px whitesmoke;
 }
-
 a#openid_facebook        { background-position:0px 0px;   }
 a#openid_facebook:hover  { background-position:0px -43px; }
 a#openid_facebook:active { background-position:0px -86px; }
@@ -119,11 +108,6 @@ input[type=text] {
     border:1px solid rgba(0,0,0, 0.2);
     
 }
-
-.twitter_email_box_empty{
-    background: url(images/twitter_textbox_bg.png) center center no-repeat; 
-}
-
 input[type=text]:focus {
     box-shadow: 0 0 5px rgba(0, 0, 255, 1);
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1); 
@@ -131,33 +115,22 @@ input[type=text]:focus {
     border:1px solid rgba(0,0,255, 0.8); 
     background: none;
 }
-
-input[type="submit"] {
-    font-family: "Arial Black", Gadget, sans-serif;
-    font-size: 20px;
-    color: #443333;
-    padding: 5px 25px 5px 25px;
-    border: 1px solid #999;
- 
-    text-shadow: 0px 1px 1px #CCC;
-    text-decoration: none;
- 
-    -moz-box-shadow: 0 1px 3px #111;
-    -webkit-box-shadow: 0 1px 3px #111;
-    box-shadow: 0 1px 3px #111;
- 
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
- 
-    background: #696969;
-    background: -moz-linear-gradient(top, #d1d1d1 10%, #7b7b7b 60%, #696969 80%, #696969 100%);
-    background: -webkit-gradient(linear, left top, left bottom, from(#d1d1d1), to(#7b7b7b), color-stop(0.4, #d1d1d1), color-stop(0.8, #7b7b7b), color-stop(.9, #696969), color-stop(0.9, #696969));
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#7b7b7b', GradientType=0 );
- 
-    cursor: pointer;
+input[type=submit] {
+    background: #262C32;
+    width: 150px;
+    padding: 9px;
+    letter-spacing: 1px;
+    border: none;
+    color: #EFDDA8;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -webkit-appearance: none;
+    font-size: 22px;
 }
-
 input[type=submit]:hover{
-    color: #000;
+    background: #444545;
+}
+input[type=submit]:active{
+    background: #000;
 }
