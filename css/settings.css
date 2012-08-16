@@ -1,134 +1,97 @@
-/* * ******************************************************************** */
-/* ATutor							       */
-/* * ******************************************************************** */
-/* Copyright (c) 2002-2012                                             */
-/* Inclusive Design Institute	                                       */
-/* http://atutor.ca                                                    */
-/*                                      			       */
-/* This program is free software. You can redistribute it and/or       */
-/* modify it under the terms of the GNU General Public License         */
-/* as published by the Free Software Foundation.		       */
-/* * ******************************************************************** */
-/* $Id: settings.css UTF-8 10055 Jul 2, 2012, 11:23:59 PM Author:scari  $ */
-
 .image-icon-container{
-	margin: 10px;
-	float: left;
+    margin: 10px;
+    float: left;
 }
-
-.main-heading-container{
-	
-}
-
 .openid-settings-form{
-font: 12px/17px Arial, Helvetica, sans-serif;
-color: #333;
-background: #ccc;
-padding: 40px 20px 20px 20px;
-border-radius: 10px;
+    font: 12px/17px Arial, Helvetica, sans-serif;
+    color: #333;
+    background: #ccc;
+    padding: 40px 20px 20px 20px;
+    border-radius: 10px;
 }
 ol, ul {
-list-style: none;
-line-height: 17px;
-margin: 0 0 1em;
+    list-style: none;
+    line-height: 17px;
+    margin: 0 0 1em;
 }
-
 .settings {
-overflow: hidden;
-margin: 2em 0 0;
+    overflow: hidden;
+    margin: 2em 0 0;
 }
-
 .settings li {
-margin: 3px 0 2em;
+    margin: 3px 0 2em;
 }
-
 .settings img {
-float: left;
-margin: -13px 0 0;
+    float: left;
+    margin: -13px 0 0;
 }
-
 .settings .title {
-font-size: 16px;
-margin-bottom: .3em;
-text-shadow: 5px 5px 5px #FF0000;
+    font-size: 16px;
+    margin-bottom: .3em;
+    text-shadow: 5px 5px 5px #FF0000;
 }
 .settings p {
-margin: 0 0 0 68px;
+    margin: 0 0 0 68px;
 }
-
 .settings .sub-item {
-padding-left: 30px;
+    padding-left: 30px;
 }
-
 .settings-content {
-	padding-left: 40px;
-	padding-bottom: 20px;
-	padding-top: 25px;
-
-	
+    padding-left: 40px;
+    padding-bottom: 20px;
+    padding-top: 25px;	
 }
-
 dd {
-float: left;
-line-height: 25px;
-margin: 0 0 10px 0;
+    float: left;
+    line-height: 25px;
+    margin: 0 0 10px 0;
 }
-
 dt {
-float: left;
-text-align: right;
-width: 190px;
-line-height: 25px;
-margin: 0 10px 10px 0;
+    float: left;
+    text-align: right;
+    width: 190px;
+    line-height: 25px;
+    margin: 0 10px 10px 0;
 }
-
 dl {
-clear: both;
+    clear: both;
 }
-
 fieldset{
-	background: #f2f2e6;
-padding: 10px;
-border: 1px solid #fff;
-border-color: #fff #666661 #666661 #fff;
-margin-bottom: 36px;
-width: 800px;
-border-radius: 10px;
-padding-bottom: 30px;
+    background: #f2f2e6;
+    padding: 10px;
+    border: 1px solid #fff;
+    border-color: #fff #666661 #666661 #fff;
+    margin-bottom: 36px;
+    width: 800px;
+    border-radius: 10px;
+    padding-bottom: 30px;
 }
-
 legend{
-	width: 400px;
-height: 84px;
-background-color: #f2f2f2;
-border-radius: 10px;	
-border: 1px solid #fff;
-border-color: #fff #666661 #666661 #fff;
+    width: 400px;
+    height: 84px;
+    background-color: #f2f2f2;
+    border-radius: 10px;	
+    border: 1px solid #fff;
+    border-color: #fff #666661 #666661 #fff;
 }
-
 .settings .main-image{
-	margin: -20px 0 0;
+    margin: -20px 0 0;
 }
-
 .settings .main-fieldset{
-	margin-left: -40px;
-	width: 100%;
+    margin-left: -40px;
+    width: 100%;
 }
-
 .settings .vertical-space{
-	height: 50px;
-	display: block;
+    height: 50px;
+    display: block;
 }
-
 .buttons a, .buttons button{
     display:block;
     float:left;
     margin:0 7px 0 0;
-  ;
     border:1px solid #dedede;
     border-top:1px solid #eee;
     border-left:1px solid #eee;
-
     font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
     font-size:12px;
     line-height:130%;
@@ -157,9 +120,6 @@ border-color: #fff #666661 #666661 #fff;
     width:16px;
     height:16px;
 }
-
-/* STANDARD */
-
 button:hover, .buttons a:hover{
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
@@ -170,7 +130,6 @@ button:hover, .buttons a:hover{
     border:1px solid #6299c5;
     color:#fff;
 }
-
 button.positive, .buttons a.positive{
     color:#529214;
 }
@@ -184,25 +143,22 @@ button.positive, .buttons a.positive{
     border:1px solid #529214;
     color:#fff;
 }
-
- .errormsgbox {
- font-weight:bold;
- border: 2px solid;
- margin: 10px 0px;
- padding:15px 10px 15px 70px;
- background-repeat: no-repeat;
- background-position: 10px center;
- width:600px;
- font-size: 16px;
- height: 35px;
-}
-
 .errormsgbox {
- color: #D8000C;
- background-color:#FDD5CE;
- background-image: url('../images/error.png');
+    font-weight:bold;
+    border: 2px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 70px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    width:600px;
+    font-size: 16px;
+    height: 35px;
 }
-
+.errormsgbox {
+    color: #D8000C;
+    background-color:#FDD5CE;
+    background-image: url('../images/error.png');
+}
 .help-img {
     margin: 0;
     margin-left: 10px;
@@ -211,7 +167,6 @@ td{
     border-right: 1px solid #BBB;
     padding: 15px;
 }
-
 table {
 border: 1px solid #BBB;
 border-spacing: 0;
@@ -226,17 +181,13 @@ border: 1px solid #4D90FE;
 padding: 6px 10px;
 font-weight: bold;
 }
-
- #overlay {
+#overlay {
     color:#efefef;
-  }
-  /* container for external content. uses vertical scrollbar, if needed */
-  div.contentWrap {
+}
+div.contentWrap {
     overflow-y:auto;
     height: 500px;
-  }
-  
-  /* the overlayed element */
+}
 .apple_overlay {
     display:none;
     width:840px;
@@ -246,8 +197,6 @@ font-weight: bold;
     background-color: black;
     border-radius: 20px;
 }
-
-/* default close button positioned on upper right corner */
 .apple_overlay .close {
     background-image:url("../images/close.png");
     position:absolute; right:5px; top:5px;
