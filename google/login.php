@@ -57,11 +57,6 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                   if($_openid_config['OPENID_GOOGLE_QUERY_COUNTRY']=='true'){
                       $openid->required['country'] = 'contact/country/home';
                   }
-                  
-                  #Or lanugage?
-                  if($_openid_config['OPENID_GOOGLE_QUERY_LANGUAGE']=='true'){
-                      $openid->required['language'] = 'pref/language';
-                  }
                                 
                   #Set UI params
                   if($_openid_config['OPENID_GOOGLE_ENABLE_UI_MODE'] != 'false'){
@@ -117,7 +112,6 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                  $openid_email    = isset($attr['contact/email'])?$attr['contact/email']:NULL;
                  $openid_fname    = isset($attr['namePerson/first'])?$attr['namePerson/first']:NULL;
                  $openid_lname    = isset($attr['namePerson/last'])?$attr['namePerson/last']:NULL;
-                 $openid_language = isset($attr['pref/language'])?$attr['pref/language']:NULL;
                  $openid_country  = isset($attr['contact/country/home'])?$attr['contact/country/home']:NULL;
                  
                  #Can we continue without mail? . No, we can't
