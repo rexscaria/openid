@@ -101,18 +101,14 @@ OpenID-ATutor
                                     from Google and  saves it  in   the 
                                     ATutor user preferences.
 
-        h). Query Language details: Fetches language details of the user
-                                    from  Google  and saves  it  in the 
-                                    ATutor user preferences.
-
-        i). Use  OAuth            : Instead of Google OpenID, the Google
+        h). Use  OAuth            : Instead of Google OpenID, the Google
                                     OAuth will  be used.  This can  work 
                                     with ATutor Google Apps  module.  So
                                     that  it   eliminates  the   need  of
                                     authenticating again  for the  Google
                                     Apps module.
 
-        j). OAuth consumer key    : Consumer key provided by Google after
+        i). OAuth consumer key    : Consumer key provided by Google after
                                     registering  the  site.   This  is
                                     typically a DNS domain name.
                                     Refer https://accounts.google.com/ManageDomains
