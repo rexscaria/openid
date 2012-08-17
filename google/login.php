@@ -64,7 +64,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                   
                   #Or lanugage?
                   if($_openid_config['OPENID_GOOGLE_QUERY_LANGUAGE']=='true'){
-                      $openid->required['country'] = 'pref/language';
+                      $openid->required['language'] = 'pref/language';
                   }
                                 
                   #Set UI params
@@ -130,7 +130,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                     throw new Exception(_AT('openid_email_not_valid'));
         
                  
-                 if(isset($openid_country))
+                 if(!empty($openid_country))
                      $openid_country = $_openid_countries[$openid_country];
                  
                  if(!isset($openid_email) || !isset($openid_fname) || !isset($openid_lname))
