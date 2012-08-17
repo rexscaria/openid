@@ -92,10 +92,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 </dt>
                 <dd>
                   <select name="google_select_ui_mode" id="google_select_ui_mode">
-                    <option value="x-has-session" selected="selected" label="x-has-session">
+                    <option value="x-has-session" <?php  echo ($_openid_config['OPENID_GOOGLE_UI_MODE']=='x-has-session')? 'selected' : ''?> label="x-has-session">
                       x-has-session
                     </option>
-                    <option value="popup" label="popup">
+                    <option value="popup" <?php  echo ($_openid_config['OPENID_GOOGLE_UI_MODE']=='popup')? 'selected' : ''?> label="popup">
                       popup
                     </option>
                   </select>
