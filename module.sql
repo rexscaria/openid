@@ -37,7 +37,6 @@ INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_ENABLE_UI_MODE','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_MODE','x-has-session');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_UI_ICON','true');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_QUERY_COUNTRY','false');
-INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_QUERY_LANGUAGE','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_REQUEST_OAUTH','false');
 INSERT INTO `openid_settings` VALUES ('OPENID_GOOGLE_OAUTH_CONSUMER_KEY','');
 
@@ -105,7 +104,6 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_e
 INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_mode','UI mode : ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_google_enable_ui_icon','Enable UI Icon : ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_google_query_country','Query Country details : ',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_google_query_lang','Query Language details : ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_google_use_oauth','Use OAuth(Work with Google Apps module) : ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_google_oauth_key','OAuth consumer key : ',NOW(),'openid');
 
