@@ -63,7 +63,7 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','OpenID 
 #OpenID Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_email_not_valid','Failed to retrieve valid e-mail address from OpenID provider.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_details_not_valid','Failed to retrieve required attributes from OpenID provider.',NOW(),'openid');
-INSERT INTO `language_text` VALUES ('en', '_template','openid_mysql_error','Invalid MySQL query : ',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_mysql_error','MySQL ERROR : ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_permission_denied','Permission denied!',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_try_again','Refresh the page and try again.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_masterlist_enabled','The masterlist is enabled. OpenID module can\'t work properly with masterlist. Contact the admin to disable this functionality at ',NOW(),'openid');
