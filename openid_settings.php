@@ -73,12 +73,6 @@ if(isset($_POST['submit']) && $_POST['submit']=='submit'){
             $params['OPENID_GOOGLE_QUERY_COUNTRY'] = 'false';      
         
         
-        #Set Query lang status.
-        if(isset($_POST['google_query_lang']) && $_POST['google_query_lang'] = 'true')
-            $params['OPENID_GOOGLE_QUERY_LANGUAGE'] = 'true';
-        else
-            $params['OPENID_GOOGLE_QUERY_LANGUAGE'] = 'false';
-        
         #Set oauth status.
         if(isset($_POST['google_use_oauth']) && $_POST['google_use_oauth'] = 'true'){
             $params['OPENID_GOOGLE_REQUEST_OAUTH'] = 'true';
