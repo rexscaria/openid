@@ -116,11 +116,6 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dd><input type="checkbox" name="google_query_country" id="google_query_country" value="true" <?php echo ($_openid_config['OPENID_GOOGLE_QUERY_COUNTRY']=='true')? 'checked' : 'unchecked'?> /></dd>
             </dl>
             <dl>
-              <dt>  <?php echo _AT('openid_google_query_lang'); ?>  
-              </dt>
-              <dd><input type="checkbox" name="google_query_lang" id="google_query_lang" value="true" <?php echo ($_openid_config['OPENID_GOOGLE_QUERY_LANGUAGE']=='true')? 'checked' : 'unchecked'?> /></dd>
-            </dl>
-            <dl>
               <dt>  <?php echo _AT('openid_google_use_oauth'); ?>  
               </dt>
               <dd><input type="checkbox" name="google_use_oauth" id="google_use_oauth"  value="true" <?php echo ($_openid_config['OPENID_GOOGLE_REQUEST_OAUTH']=='true')? 'checked' : 'unchecked'?> /></dd>
