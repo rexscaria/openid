@@ -39,9 +39,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
         
         #Create OpenID Utility object
         $openid = new OpenIDUtility;        
-        if (isset($_GET['login'], $_GET['openid_provider']) && $_GET['login']=='true' && 
-            $_GET['openid_provider'] == 'google' &&
-            !$openid->mode) {
+        if (!$openid->mode) {
                   #Set Google indentity URL
                   $openid->identity = GOOGLE_IDENTITY_URL;
                   #setting call back url
@@ -52,9 +50,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                   $openid->required = array(
                         'email'       =>   'contact/email',
                         'firstname'   =>   'namePerson/first',
-                        'lastname'    =>   'namePerson/last',
-                      /*'country'     =>   'contact/country/home',
-                        'language'    =>   'pref/language'*/
+                        'lastname'    =>   'namePerson/last'
                       );
                   
                   #Should we query the country.
@@ -74,8 +70,7 @@ if (defined('AT_MASTER_LIST') && AT_MASTER_LIST) {
                        $openid->ui_mode= $_openid_config['OPENID_GOOGLE_UI_MODE'];
                   }else
                       $openid->use_ui = false;
-                 
-                                
+                              
                   #Set pape params
                   if($_openid_config['OPENID_GOOGLE_ENABLE_PAPE'] == 'true'){
                       $openid->use_pape = true;
