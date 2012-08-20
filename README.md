@@ -17,7 +17,7 @@ OpenID-ATutor
   registering a new account.
 
     The  OpenID module  supports  Google, Facebook  and Twitter  based
-  login.  The administartor can configure these three OpenID services.
+  login.  The administrator can configure these three OpenID services.
 
   INDEX
   -----
@@ -93,7 +93,7 @@ OpenID-ATutor
                                          authenticated session)
                                     Default is "x-has-session".
 
-        f). EnableUI Icon         : Displays the favicon of the referring
+        f). Enable UI Icon        : Displays the favicon of the referring
                                     domain in the OpenID approval page if
                                     set.
 
@@ -179,8 +179,8 @@ OpenID-ATutor
      Twitter mail confirmation  is set, then the user  need to confirm
      his/her mail by clicking on the link in the registered mail.
 
-  6.  Only instructors  and  students  can login  to  the ATutor  with
-     OpenID.  The admins  are required  to  take the  login page  with
-     username, password combo.
+  6. Only  instructors  and  students  can login  to  the ATutor  with
+     OpenID. The administrators are required to  take the  login  page
+     with username, password combination.
 
 
