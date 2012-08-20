@@ -50,10 +50,10 @@ try{
             
             # User info ok.
             $openid_username = $user_profile['username'];
-            $openid_email = $user_profile['email'];
-            $openid_fname = $user_profile['first_name'];
-            $openid_lname = $user_profile['last_name'];
-            $openid_country = (isset($user_profile['location'])? $user_profile['location']['name']:NULL);
+            $openid_email    = $user_profile['email'];
+            $openid_fname    = $user_profile['first_name'];
+            $openid_lname    = $user_profile['last_name'];
+            $openid_country  = (isset($user_profile['location'])? $user_profile['location']['name']:NULL);
         
             #Can we continue without mail? . No, we can't, if it is invalid.
             if(!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
