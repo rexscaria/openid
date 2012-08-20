@@ -386,7 +386,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
                 && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' 
                 && OPENID_PROVIDER == 'TWITTER') 
                     ||
-                (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION)) {
+                (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER == 'TWITTER')) {
                 $status = AT_STATUS_UNCONFIRMED;
         } else {
                 $status = AT_STATUS_STUDENT;
