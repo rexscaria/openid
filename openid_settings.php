@@ -25,6 +25,11 @@ require ('openid.vitals.inc.php');
 
 if(isset($_POST['submit']) && $_POST['submit']=='submit'){
     
+    #Sanitise the inputs.
+    foreach ($_POST as $key => $value) {
+        $_POST[$key] = addslashes($value);
+    }
+    
     $params = array();
     if(isset($_POST['google_enable']) && $_POST['google_enable']=="true"){
         
