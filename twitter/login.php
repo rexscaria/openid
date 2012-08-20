@@ -139,7 +139,7 @@ try {
             $_POST['submit'] == "submit") {
 
         unset($_SESSION['email_request_id']);
-        $openid_email = trim($_POST['twitter_email']);
+        $openid_email = addslashes(trim($_POST['twitter_email']));
       
         #Can we continue without mail? . No, we can't
         if(!filter_var($openid_email, FILTER_VALIDATE_EMAIL))
@@ -209,7 +209,6 @@ try {
             unsetSession($db);
         }
         
-        #############################
         $now = date('Y-m-d H:i:s');
          if (
             (isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' && OPENID_PROVIDER=='TWITTER' ) 
