@@ -357,7 +357,11 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
 }
 
 
-function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $openid_email, $openid_country, $username_sugestion) {
+function registerAndLoginWithOpenID($openid_obj, $openid_fname, 
+                                                 $openid_lname, 
+                                                 $openid_email, 
+                                                 $openid_country, 
+                                                 $username_sugestion) {
         
     global $_config;
     global $msg;
@@ -394,6 +398,13 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname, $openid_lname, $
         #Its time to select a login name.
         $login_name = getFreeLoginName($db, $openid_fname, $openid_lname,$openid_email, $username_sugestion);
 
+        #Make the parameters clean
+        $openid_email   = addslashes($openid_email);
+        $openid_country = addslashes($openid_country);
+        $openid_fname   = addslashes($openid_fname);
+        $openid_lname   = addslashes($openid_lname);
+        $login_name     = addslashes($login_name);
+        
         $sql = "INSERT INTO ".TABLE_PREFIX."members 
                 (login,
                 email,
@@ -546,7 +557,6 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
             $_SESSION['lang']	= $language;
             $_SESSION['course_id']  = 0;
             $now = date('Y-m-d H:i:s');
-            $default_course_id = 0;
 
             #Its an OpenID session
             $_SESSION['is_openid'] = true;
