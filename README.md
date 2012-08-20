@@ -13,7 +13,7 @@ OpenID-ATutor
   password combination.  This module can work with  OAuth based Google
   app  module to  import Google  services  to the  ATutor. The  OpenID
   module for ATutor  is an anytime pluggable module  that can help the
-  Atutor  users  to  login  from  their  Google  account  rather  than
+  ATutor  users  to  login  from  their  Google  account  rather  than
   registering a new account.
 
     The  OpenID module  supports  Google, Facebook  and Twitter  based

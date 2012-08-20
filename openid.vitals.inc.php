@@ -380,8 +380,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
             $msg->addError('LOGIN_EXISTS');
             return;
 	}
-
-
+        
         #Email conformation is recommended for twitter.
         if ((isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) 
                 && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' 
@@ -553,7 +552,7 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
             assign_session_prefs(unserialize(stripslashes($_config["pref_defaults"])), 1);
             else
             assign_session_prefs(unserialize(stripslashes($preferences)), 1);
-            $_SESSION['is_guest']	= 0;
+            $_SESSION['is_guest'] = 0;
             $_SESSION['lang']	= $language;
             $_SESSION['course_id']  = 0;
             $now = date('Y-m-d H:i:s');
