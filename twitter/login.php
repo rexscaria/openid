@@ -170,7 +170,7 @@ try {
                 $user_info->id_str == $access_token['id'])
             throw new Exception(_AT('openid_twitter_invalid_access_token'));
 
-        $name_array = split(' ', $user_info->name,2);
+        $name_array = explode(' ', $user_info->name,2);
         preg_match_all('/[^, ]+$/',  $user_info->location, $location_arr, PREG_PATTERN_ORDER);
         
         $openid_email = filter_var($openid_email, FILTER_SANITIZE_EMAIL);
