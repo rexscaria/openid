@@ -23,7 +23,7 @@ require_once ('libs/twitteroauth.php');
 require_once ('../openid.vitals.inc.php');
 
 #callback URL
-define('CALLBACK_URL', generateCallBackURL());
+define('CALLBACK_URL', generateCallBackURL(NULL));
 define('OPENID_LOGIN_PAGE_URL', AT_BASE_HREF . 'mods/openid/openid_login.php');
 define('OPENID_MOD_DIR', AT_BASE_HREF . 'mods/openid/');
 define('OPENID_PROVIDER', 'TWITTER');
@@ -136,7 +136,7 @@ try {
             isset($_POST['twitter_email']) && 
             $_SESSION['email_request_id'] == $_POST['request'] &&
             $_SESSION['email_reply_timestamp'] == $_POST['reply'] &&
-            $_POST['submit'] == "submit") {
+            $_POST['submit'] == 'submit') {
 
         unset($_SESSION['email_request_id']);
         $openid_email = addslashes(trim($_POST['twitter_email']));
@@ -210,12 +210,7 @@ try {
         }
         
         $now = date('Y-m-d H:i:s');
-         if (
-            ( isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) && 
-              $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' && 
-              OPENID_PROVIDER=='TWITTER' ) 
-            ||
-            (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER=='TWITTER')) {
+         if (isEmailValidationRequired()) {
                 $msg->addFeedback('OPENID_REG_THANKS_CONFIRM');
 
                 $code = substr(md5($openid_email . $now . $m_id), 0, 10);
