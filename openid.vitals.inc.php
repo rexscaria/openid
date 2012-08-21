@@ -356,6 +356,16 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
      return mysql_query($sql, $db) or die(mysql_error());
 }
 
+function isEmailValidationRequired(){
+    global $_openid_config;
+    return OPENID_PROVIDER == 'TWITTER' && (
+                    ($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true')  
+                        ||        
+                    (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION )
+           );
+    
+}
+
 
 function registerAndLoginWithOpenID($openid_obj, $openid_fname, 
                                                  $openid_lname, 
@@ -382,11 +392,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
 	}
         
         #Email conformation is recommended for twitter.
-        if ((isset($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']) 
-                && $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' 
-                && OPENID_PROVIDER == 'TWITTER') 
-                    ||
-                (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION && OPENID_PROVIDER == 'TWITTER')) {
+        if (isEmailValidationRequired()) {
                 $status = AT_STATUS_UNCONFIRMED;
         } else {
                 $status = AT_STATUS_STUDENT;
