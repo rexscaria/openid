@@ -67,6 +67,8 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_permission_denied'
 INSERT INTO `language_text` VALUES ('en', '_template','openid_try_again','Refresh the page and try again.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_masterlist_enabled','The masterlist is enabled. OpenID module can\'t work properly with masterlist. Contact the admin to disable this functionality at ',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_click_to_login','Click to login',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_unknown_provider','Unknow OpenID provider.',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_invalid_parameters','Invalid parameters, Login failed.',NOW(),'openid');
 
 #FB Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_data_failed','Failed to Facebook fetch profile information.',NOW(),'openid');
