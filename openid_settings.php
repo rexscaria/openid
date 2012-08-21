@@ -23,7 +23,7 @@ $_custom_head = '<script type="text/javascript" src="mods/openid/js/settings.js"
 require ('openid.vitals.inc.php');
 
 
-if(isset($_POST['submit']) && $_POST['submit']=='submit'){
+if(!empty($_POST['submit'])){
     
     #Sanitise the inputs.
     foreach ($_POST as $key => $value) {
