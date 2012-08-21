@@ -29,7 +29,7 @@ $this->_pages['mods/openid/openid_login.php']['text']  = _AT('openid_text');
  */
 if (admin_authenticate(AT_ADMIN_PRIV_HELLO_WORLD, TRUE) || admin_authenticate(AT_ADMIN_PRIV_ADMIN, TRUE)) {
 	$this->_pages[AT_NAV_ADMIN] = array('mods/openid/openid_settings.php');
-	$this->_pages['mods/openid/openid_settings.php']['title_var'] = 'OpenID Settings';
+	$this->_pages['mods/openid/openid_settings.php']['title_var'] = 'openid_settings';
 	$this->_pages['mods/openid/openid_settings.php']['parent']    = AT_NAV_ADMIN;
 }
 
@@ -43,7 +43,7 @@ if (admin_authenticate(AT_ADMIN_PRIV_HELLO_WORLD, TRUE) || admin_authenticate(AT
  */
 
 $this->_pages['login.php']['children']  = array_merge(array('mods/openid/openid_login.php'), isset($_pages['login.php']['children']) ? $_pages['login.php']['children'] : array());
-$this->_pages['mods/openid/openid_login.php']['title_var'] = 'OpenID Login';
+$this->_pages['mods/openid/openid_login.php']['title_var'] = 'openid_login';
 $this->_pages['mods/openid/openid_login.php']['parent']    = 'login.php';
 
 /* No my start pages are required */
