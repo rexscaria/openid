@@ -71,6 +71,11 @@ OpenID-ATutor
 
                                     Default  option   is "checkid_setup"
                                     which is recommended over immediate.
+
+                                    CAUTION:
+                                    Selecting  "checkid_immediate"  mode
+                                    may block users from loging into the
+                                    ATutor with new Google ids.
         
         c).  Use PAPE             : Use "OpenID  Provider Authentication
                                     Policy  Extension"  which (optional) 
@@ -177,7 +182,9 @@ OpenID-ATutor
 
   5. In  case of Twitter OpenID  the user is required  to submit their
      mail  id in  the prompt  screen on  redirection from  Twitter. If
-     Twitter mail confirmation  is set, then the user  need to confirm
+     either "Twitter mail confirmation" setting is set from the OpenID
+     settings   or  the  "email confirmation" is   enabled  at  System
+     preferences  of  ATutor settings, then  the user  need to confirm
      his/her mail by clicking on the link in the registered mail.
 
   6. Only  instructors  and  students  can login  to  the ATutor  with

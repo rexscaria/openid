@@ -359,7 +359,7 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
 function isEmailValidationRequired(){
     global $_openid_config;
     return OPENID_PROVIDER == 'TWITTER' && (
-                    ($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true')  
+                    $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' 
                         ||        
                     (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION )
            );
