@@ -65,11 +65,11 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 		   	
 			<?php 
                               if($_openid_config['OPENID_GOOGLE_ENABLED'] == 'true')  
-                                    echo '<li><a href="mods/openid/google/login.php?login=true&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">'. _AT('openid_login_with_google'). '</a></li>'; 
+                                    echo '<li><a href="mods/openid/login.php?login=true&openid_provider=google" class="openid_one-click-login openid_social_label" id="openid_google">'. _AT('openid_login_with_google'). '</a></li>'; 
                               if($_openid_config['OPENID_FB_ENABLED'] == 'true') 
-                                    echo '<li><a href="mods/openid/facebook/login.php" class="openid_one-click-login openid_social_label" id="openid_facebook">'. _AT('openid_login_with_fb'). '</a></li>';
+                                    echo '<li><a href="mods/openid/login.php?login=true&openid_provider=facebook" class="openid_one-click-login openid_social_label" id="openid_facebook">'. _AT('openid_login_with_fb'). '</a></li>';
                               if($_openid_config['OPENID_TWITTER_ENABLED'] == 'true') 
-                                    echo '<li><a href="mods/openid/twitter/login.php?login=true&openid_provider=twitter" class="openid_one-click-login openid_social_label" id="openid_twitter">'. _AT('openid_login_with_twitter'). '</a></li>'; 
+                                    echo '<li><a href="mods/openid/login.php?login=true&openid_provider=twitter" class="openid_one-click-login openid_social_label" id="openid_twitter">'. _AT('openid_login_with_twitter'). '</a></li>'; 
                         ?>
 		  
 	</div>
