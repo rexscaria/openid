@@ -69,7 +69,8 @@ OpenID-ATutor
                                      "checkid_setup"        (Interaction
                                                                 allowed)
 
-                                    Default option is "checkid_setup".
+                                    Default  option   is "checkid_setup"
+                                    which is recommended over immediate.
         
         c).  Use PAPE             : Use "OpenID  Provider Authentication
                                     Policy  Extension"  which (optional) 
