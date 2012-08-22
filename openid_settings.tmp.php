@@ -57,10 +57,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
               <dd>
                 <select name="google_select_mode" id="google_select_mode" >
                   <option value="checkid_setup" <?php  echo ($_openid_config['OPENID_GOOGLE_MODE']=='checkid_setup')? 'selected' : ''?> label="checkid_setup">
-                    checkid_setup
+                    <?php  echo _AT('openid_google_checkid_setup'); ?>
                   </option>
                   <option value="checkid_immediate" <?php  echo ($_openid_config['OPENID_GOOGLE_MODE']=='checkid_immediate')? 'selected' : ''?> label="checkid_immediate">
-                    checkid_immediate
+                   <?php echo _AT('openid_google_checkid_immediate'); ?>  
                   </option>
                 </select>
               </dd>
@@ -93,10 +93,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 <dd>
                   <select name="google_select_ui_mode" id="google_select_ui_mode">
                     <option value="x-has-session" <?php  echo ($_openid_config['OPENID_GOOGLE_UI_MODE']=='x-has-session')? 'selected' : ''?> label="x-has-session">
-                      x-has-session
+                      <?php echo _AT('openid_google_x_has_session'); ?>  
                     </option>
                     <option value="popup" <?php  echo ($_openid_config['OPENID_GOOGLE_UI_MODE']=='popup')? 'selected' : ''?> label="popup">
-                      popup
+                      <?php echo _AT('openid_google_popup'); ?>  
                     </option>
                   </select>
                 </dd>

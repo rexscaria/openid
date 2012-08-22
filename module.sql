@@ -70,6 +70,13 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_click_to_login','C
 INSERT INTO `language_text` VALUES ('en', '_template','openid_unknown_provider','Unknow OpenID provider.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_invalid_parameters','Invalid parameters, Login failed.',NOW(),'openid');
 
+#Google Errors
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_checkid_setup','checkid_setup',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_checkid_immediate','checkid_immediate',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_x_has_session','x-has-session',NOW(),'openid');
+INSERT INTO `language_text` VALUES ('en', '_template','openid_google_popup','popup',NOW(),'openid');
+
+
 #FB Errors
 INSERT INTO `language_text` VALUES ('en', '_template','openid_fb_data_failed','Failed to Facebook fetch profile information.',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_fb','Login with Facebook',NOW(),'openid');
