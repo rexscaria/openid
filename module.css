@@ -1,15 +1,3 @@
-div.openid_input-form {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px #CCCCCC solid;
-    margin-bottom: 10px;
-    line-height: 150%;
-    background-color: #F8F8F8;
-    border-radius: .5em;
-    -moz-border-radius: .5em .5em .5em .5em;
-    padding: .2em;
-}
 #opnid_wraper{
     background: #F8F8F8 url('images/openid_bg.png') no-repeat top left;
     background-position-x: 10%;
@@ -27,16 +15,14 @@ p#openid_content_text{
     color: #444;
 }
 #openid_vertical_divider {
-    width: 40%;
-    padding-left: 65px;
-    padding-right: 15px;
+    padding-left: 5%;
     border-left-style: solid;
     border-left-width: 1px;
     border-color: #cccccc;
     height: 250px;
     position: absolute;
     left: 50%;
-    margin-top: 30px;
+    margin-top: 3%;
 }
 #openid_indicator_arrow::before {
     content: url('images/indicator_right.png');
@@ -46,9 +32,7 @@ p#openid_content_text{
     left: -1px;
     top: 35px; 
 }
-#openid_login-btns-wrapper{
-    margin-left: 70px;
-}
+
 fieldset{
     border: 0;
     color: #757575;
@@ -74,7 +58,6 @@ a.openid_one-click-login {
 }
 #openid_login-btns-wrapper{
     list-style-type: none;
-    margin-left: 40px;
 }
 a.openid_social_label{
     width: 251px;
