@@ -533,7 +533,7 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
             $msg->addError('MAX_LOGIN_ATTEMPT');
             header('Location: ' .OPENID_MOD_DIR.'openid_login.php');
             exit;
-        } else if ($status == AT_STATUS_UNCONFIRMED) {
+        } else if (isEmailValidationRequired () && $status == AT_STATUS_UNCONFIRMED) {
             $msg->addError('NOT_CONFIRMED');
             #TODO: Make the mail id as conformed.
             header('Location: ' .OPENID_MOD_DIR.'openid_login.php');
