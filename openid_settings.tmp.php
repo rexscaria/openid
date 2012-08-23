@@ -17,6 +17,20 @@ if (!defined('AT_INCLUDE_PATH')) { exit; }
 
 global $_openid_config;
 require (AT_INCLUDE_PATH.'header.inc.php'); 
+
+function isEmailValidationSetForTwitter(){
+    global $_openid_config;
+    return (
+                    $_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID'] == 'true' 
+                        ||        
+                    (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION )
+           );
+    
+}
+
+function isEmailValidationLocked(){
+    return (defined('AT_EMAIL_CONFIRMATION') && AT_EMAIL_CONFIRMATION ); 
+}
 ?>
 
 <div class="openid-settings-form">
@@ -156,7 +170,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             <dl>
               <dt>  <?php echo _AT('openid_twitter_mail_confirmation'); ?>  
               </dt>
-              <dd><input type="checkbox" name="twitter_email_confirmation" id="twitter_email_confirmation" value="true" <?php echo ($_openid_config['OPENID_TWITTER_CONFIRM_EMAIL_ID']=='true')? 'checked' : 'unchecked'?> size="1"/></dd>
+              <dd><input type="checkbox" name="twitter_email_confirmation" id="twitter_email_confirmation" value="true"
+                             <?php echo (isEmailValidationSetForTwitter())? 'checked' : 'unchecked'?> 
+                             <?php echo (isEmailValidationLocked())? 'disabled' : 'enabled'?>size="1"/></dd>
             </dl><i>  <?php echo _AT('openid_recommended'); ?> </i>
             <dl>
               <dt>
