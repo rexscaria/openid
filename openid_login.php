@@ -22,7 +22,7 @@ require ('openid.vitals.inc.php');
 $_custom_css = $_base_path . 'mods/openid/module.css'; // use a custom stylesheet
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
-<div class="openid_input-form" id="opnid_wraper">   
+<div class="input-form" id="opnid_wraper">   
 	<p id="openid_text"></p>
 <div id="openid_vertical_divider">
 	<div id="openid_indicator_arrow"></div>
