@@ -172,7 +172,7 @@ function isEmailValidationLocked(){
               </dt>
               <dd><input type="checkbox" name="twitter_email_confirmation" id="twitter_email_confirmation" value="true"
                              <?php echo (isEmailValidationSetForTwitter())? 'checked' : 'unchecked'?> 
-                             <?php echo (isEmailValidationLocked())? 'disabled' : 'enabled'?>size="1"/></dd>
+                             <?php echo (isEmailValidationLocked())? 'disabled' : 'enabled'?> size="1"/></dd>
             </dl><i>  <?php echo _AT('openid_recommended'); ?> </i>
             <dl>
               <dt>
