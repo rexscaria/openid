@@ -132,11 +132,10 @@ try {
             #User denied permission.
             throw new Exception(_AT('openid_twitter_user_denied').' '. _AT('openid_permission_denied'), $twitteroauth->http_code);
         }
-    } else if (isset($_POST['submit']) &&
+    } else if (!empty ($_POST['submit']) &&
             isset($_POST['twitter_email']) && 
             $_SESSION['email_request_id'] == $_POST['request'] &&
-            $_SESSION['email_reply_timestamp'] == $_POST['reply'] &&
-            $_POST['submit'] == 'submit') {
+            $_SESSION['email_reply_timestamp'] == $_POST['reply'] ) {
 
         unset($_SESSION['email_request_id']);
         $openid_email = addslashes(trim($_POST['twitter_email']));
