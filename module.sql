@@ -100,7 +100,7 @@ INSERT INTO `language_text` VALUES ('en', '_template','openid_login_with_google'
 
 
 #OpenID Settings
-INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','OpenID Settings',NOW(),'openid');
+#INSERT INTO `language_text` VALUES ('en', '_template','openid_settings','OpenID Settings',NOW(),'openid');
 INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_sub_heading','Tune your OpenID.',NOW(),'openid');
 
 INSERT INTO `language_text` VALUES ('en', '_template','openid_settings_google','Google OpenID Settings',NOW(),'openid');
