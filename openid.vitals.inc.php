@@ -16,9 +16,12 @@
 if (!defined('AT_INCLUDE_PATH')) { exit; }
 
 /* get config variables. if they're not in the db then it uses the installation default value in constants.inc.php */
-$sql_stmt    = "SELECT property_name, property_value FROM ".TABLE_PREFIX."openid_settings";
-$resultset = mysql_query($sql_stmt, $db);
-while ($ret_row = mysql_fetch_assoc($resultset)) { 
+//$sql_stmt    = "SELECT property_name, property_value FROM ".TABLE_PREFIX."openid_settings";
+//$resultset = mysql_query($sql_stmt, $db);
+$sql_stmt    = "SELECT property_name, property_value FROM %sopenid_settings";
+$resultset = queryDB($sql_stmt, array(TABLE_PREFIX));
+foreach($resultset as $ret_row){
+//while ($ret_row = mysql_fetch_assoc($resultset)) { 
 	$_openid_config[$ret_row['property_name']] = $ret_row['property_value'];
 }
 
@@ -259,8 +262,10 @@ $_openid_countries = array(
 
 function unsetSession($db){
     if (isset($_SESSION['member_id'])) {
-        $sql = "DELETE FROM ".TABLE_PREFIX."users_online WHERE member_id=$_SESSION[member_id]";
-        @mysql_query($sql, $db);
+        //$sql = "DELETE FROM ".TABLE_PREFIX."users_online WHERE member_id=$_SESSION[member_id]";
+        //@mysql_query($sql, $db);
+        $sql = "DELETE FROM %susers_online WHERE member_id=%d";
+        queryDB($sql, array(TABLE_PREFIX, $_SESSION['member_id']));
     }
                  unset($_SESSION['login']);
                  unset($_SESSION['valid_user']);
@@ -281,9 +286,14 @@ function unsetSession($db){
 } 
 
 function isExistLogin($db, $login) {
-    $sql = "SELECT login FROM ".TABLE_PREFIX."members WHERE login='$login'";
-    $result = mysql_query($sql,$db) or die(mysql_error());
-    return (mysql_num_rows($result)>0);
+    //$sql = "SELECT login FROM ".TABLE_PREFIX."members WHERE login='$login'";
+    //$result = mysql_query($sql,$db) or die(mysql_error());
+    $sql = "SELECT login FROM %smembers WHERE login='%s'";
+    $result = queryDB($sql, array(TABLE_PREFIX, $login));
+    if(count($result) > 0){
+        return count($result);
+    }
+    //return (mysql_num_rows($result)>0);
 }
 
 function getFreeLoginName($db, $fname, $lname, $email, $suggestion) {
@@ -332,12 +342,16 @@ function getFreeLoginName($db, $fname, $lname, $email, $suggestion) {
 
 
 function queryOpenidSettings($db, $settings_name, $default_value=false) {
-    $sql = "SELECT property_value FROM ".TABLE_PREFIX."openid_settings WHERE property_name='$settings_name'";
-    $result = mysql_query($sql,$db) or die(mysql_error());
-    if(mysql_num_rows($result)==0){
+    //$sql = "SELECT property_value FROM ".TABLE_PREFIX."openid_settings WHERE property_name='$settings_name'";
+    //$result = mysql_query($sql,$db) or die(mysql_error());
+    $sql = "SELECT property_value FROM %sopenid_settings WHERE property_name='%s'";
+    $row = queryDB($sql, array(TABLE_PREFIX, $settings_name), TRUE);
+    
+    if(count($row) == 0){
+    //if(mysql_num_rows($result)==0){
         return $default_value;
     }
-    $row = mysql_fetch_array($result);  
+    //$row = mysql_fetch_array($result);  
     return $row['property_value'];
 }
 
@@ -346,7 +360,7 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
      global $db;
      $claimed_identity = $openid_obj->identity;
      $token = $openid_obj->getOAuthRequestToken();
-     $sql = "REPLACE INTO `$tab_prefix"."openid_oauth_request_token`
+/*     $sql = "REPLACE INTO `$tab_prefix"."openid_oauth_request_token`
                      VALUES ( $mem_id, 
                      '$op_provider',
                      '$claimed_identity',
@@ -354,6 +368,16 @@ function addOAuthTokenToDB($openid_obj, $mem_id, $tab_prefix, $op_provider) {
                      NOW()
                 )";
      return mysql_query($sql, $db) or die(mysql_error());
+*/
+     $sql = "REPLACE INTO %sopenid_oauth_request_token
+                     VALUES ( %d, 
+                     '%s',
+                     '%s',
+                     '%s',
+                     NOW()
+                )";
+    $result = queryDB($sql, array($tab_prefix, $mem_id, $op_provider, $claimed_identity, $token));
+     return $result;
 }
 
 function isEmailValidationRequired(){
@@ -385,8 +409,12 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
             exit;
         }
         
-        $result = mysql_query("SELECT * FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
-	if (mysql_num_rows($result) != 0) {
+        //$result = mysql_query("SELECT * FROM ".TABLE_PREFIX."members WHERE email='$openid_email'",$db);
+        $sql = "SELECT * FROM %smembers WHERE email='%s'";
+        $result = queryDB($sql, array(TABLE_PREFIX, $openid_email));
+     
+    if(count($result) > 0){   
+	//if (mysql_num_rows($result) != 0) {
             $msg->addError('LOGIN_EXISTS');
             return;
 	}
@@ -409,7 +437,7 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
         $openid_fname   = addslashes($openid_fname);
         $openid_lname   = addslashes($openid_lname);
         $login_name     = addslashes($login_name);
-        
+/*        
         $sql = "INSERT INTO ".TABLE_PREFIX."members 
                 (login,
                 email,
@@ -438,26 +466,76 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
 
         $result = mysql_query($sql, $db) or die(mysql_error());
         $m_id   = mysql_insert_id($db);
-        if (!$result) {
+*/
+        $sql = "INSERT INTO %smembers 
+                (login,
+                email,
+                first_name,
+                last_name,
+                country,
+                status,
+                preferences,
+                creation_date,
+                language,
+                inbox_notify,
+                private_email,
+                last_login)
+        VALUES ('%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s', 
+                 %d, 
+                '%s', 
+                '%s',
+                '%s', 
+                 %d, 
+                 %d, 
+                '0000-00-00 00:00:00')";
+
+        $result = queryDB($sql, array(
+                        TABLE_PREFIX, 
+                        $login_name, 
+                        $openid_email,
+                        $openid_fname,
+                        $openid_lname,
+                        $openid_country,
+                        $status,
+                        $_config['pref_defaults'],
+                        $now,
+                        $_SESSION['lang'],
+                        $_config['pref_inbox_notify'],
+                        $default_private_email
+                        ));
+        $m_id   = at_insert_id($db);
+
+        //if (!$result) {
+        if(count($result) == 0){
             $msg->addError('DB_NOT_UPDATED');
             header('Location: '.OPENID_LOGIN_PAGE_URL);
             exit;
         }else{
             #Reset login attempts.
-            $sql = "DELETE FROM ".TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
-            mysql_query($sql, $db);
-
+            //$sql = "DELETE FROM ".TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
+            //mysql_query($sql, $db);
+            $sql = "DELETE FROM %smember_login_attempt WHERE login='%s'";
+            queryDB($sql, array(TABLE_PREFIX, $login_name));
+            
             #If en_id is set, automatically enroll into courses that links with en_id and go to "My Start Page"
             $member_id = $m_id;
 
             require (AT_INCLUDE_PATH.'html/auto_enroll_courses.inc.php');
 
             #Update last_login
-            $sql = "UPDATE ".TABLE_PREFIX."members 
+          /*  $sql = "UPDATE ".TABLE_PREFIX."members 
                     SET last_login=now(), creation_date=creation_date 
                     WHERE member_id=".$member_id;
             mysql_query($sql, $db);
-
+            */
+            $sql = "UPDATE %smembers 
+                    SET last_login=now(), creation_date=creation_date 
+                    WHERE member_id=%d";
+            queryDB($sql, array(TABLE_PREFIX, $member_id));
 
             #Write the token to db, if oauth is requested.
             if(isset($openid_obj) && $openid_obj->isOAuthRecieved()){
@@ -483,22 +561,25 @@ function registerAndLoginWithOpenID($openid_obj, $openid_fname,
 }
 
 
-function makeLoginWithOpenID( $mysql_result, $openid_obj) {
+function makeLoginWithOpenID( $result, $openid_obj) {
 
     global $_config;
     global $msg;
     global $db;
     
         #Shouldn't login if account exists.
-	if (mysql_num_rows($mysql_result) == 0) {
+	//if (mysql_num_rows($mysql_result) == 0) {
+	if(count($result) == 0){
             $msg->addError('OPENID_USER_NOT_REGITERED');
             return;
 	}
     
         #Garbage collect for maximum login attempts table
         if (rand(1, 100) == 1){
-            $sql = 'DELETE FROM '.TABLE_PREFIX.'member_login_attempt WHERE expiry < '. time();
-            mysql_query($sql, $db);
+            //$sql = 'DELETE FROM '.TABLE_PREFIX.'member_login_attempt WHERE expiry < '. time();
+           // mysql_query($sql, $db);
+            $sql = 'DELETE FROM %smember_login_attempt WHERE expiry < '. time();
+            queryDB($sql, array(TABLE_PREFIX));
         }
 
         if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
@@ -509,11 +590,14 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
         list($m_id, $login_name, $status, $preferences, $language, $last_login) = mysql_fetch_array($mysql_result);
 
         #Check if this account has exceeded maximum attempts
-        $sql = 'SELECT login, attempt, expiry FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
-
-        $result = mysql_query($sql, $db);
-        if ($result && mysql_numrows($result) > 0){
-            list($attempt_login_name, $attempt_login, $attempt_expiry) = mysql_fetch_array($result);
+        //$sql = 'SELECT login, attempt, expiry FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
+        //$result = mysql_query($sql, $db);
+        $sql = "SELECT login, attempt, expiry FROM %smember_login_attempt WHERE login='%s'";
+        $result = queryDB($sql, array(TABLE_PREFIX, $login_name));       
+        //if ($result && mysql_numrows($result) > 0){
+        if(count($result) > 0){
+            //list($attempt_login_name, $attempt_login, $attempt_expiry) = mysql_fetch_array($result);
+            list($attempt_login_name, $attempt_login, $attempt_expiry) = $result;
         } else {
             $attempt_login_name = '';
             $attempt_login = 0;
@@ -523,8 +607,11 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
         if($attempt_expiry > 0 && $attempt_expiry < time()){
 
             #Clear entry if it has expired
-            $sql = 'DELETE FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
-            mysql_query($sql, $db);
+            //$sql = 'DELETE FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
+            //mysql_query($sql, $db);
+            $sql = "DELETE FROM %smember_login_attempt WHERE login='%s'";
+            queryDB($sql, array(TABLE_PREFIX, $login_name));
+
             $attempt_login = 0;	
             $attempt_expiry = 0;
         }
@@ -575,13 +662,16 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
                 $_SESSION['first_login'] = true;
             }
 
-            $sql = "UPDATE ".TABLE_PREFIX."members SET creation_date=creation_date, last_login='$now' WHERE member_id=$_SESSION[member_id]";
-            mysql_query($sql, $db);
-
+            //$sql = "UPDATE ".TABLE_PREFIX."members SET creation_date=creation_date, last_login='$now' WHERE member_id=$_SESSION[member_id]";
+            //mysql_query($sql, $db);
+            $sql = "UPDATE %smembers SET creation_date=creation_date, last_login='%s' WHERE member_id=%d";
+            queryDB($sql, array(TABLE_PREFIX, $now, $_SESSION['member_id']));
             #Clear login attempt on successful login
-            $sql = 'DELETE FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
-            mysql_query($sql, $db);
-
+            //$sql = 'DELETE FROM '.TABLE_PREFIX."member_login_attempt WHERE login='$login_name'";
+            //mysql_query($sql, $db);
+            $sql = "DELETE FROM %smember_login_attempt WHERE login='%s'";
+            queryDB($sql, array(TABLE_PREFIX, $login_name));
+            
             $msg->addFeedback('LOGIN_SUCCESS');
         }
 }
@@ -590,12 +680,21 @@ function makeLoginWithOpenID( $mysql_result, $openid_obj) {
 function storeSettingsToDB($settings) {
     global $db;
     foreach ($settings as $key_setting => $setting_value) {
-        $sql = "UPDATE `".TABLE_PREFIX."openid_settings` 
+     /*   $sql = "UPDATE `".TABLE_PREFIX."openid_settings` 
                 SET property_value='$setting_value' 
                 WHERE property_name='$key_setting'
                 ";
         if(!mysql_query($sql))
-            return false;
+    */
+        $sql = "UPDATE %sopenid_settings SET property_value='%s' WHERE property_name='%s'";
+        $result = queryDB($sql, array(TABLE_PREFIX, $setting_value, $key_setting));
+        
+        if($result == 0){
+         return false;
+        }
+        //if(!mysql_query($sql))
+
+            //return false;
     }
     return true;
 }
